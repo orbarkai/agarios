@@ -1,0 +1,26 @@
+
+agarios
+  |
+  |---- CMakeLists.txt
+  |
+  |---- include
+  |       |
+  |       |---- agarios
+  |                 |
+  |                 |---- public_header(s).h
+  |
+  ---- src
+  |     |
+  |     |---- private_header(s).h
+  |     |
+  |     |---- code(s).cpp
+  |
+  |
+  |---- lib
+  |       |
+  |       |---- A
+  |       |
+  |       |---- B
+  |
+  |
+  |---- tests
