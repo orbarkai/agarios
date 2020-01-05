@@ -1,5 +1,6 @@
 #include <iostream>
 #include "services/Console.h"
+#include "services/Utils.h"
 
 int main()
 {
