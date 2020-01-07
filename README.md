@@ -10,8 +10,28 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-- cmake
-- make
+### cmake
+```cmd
+sudo snap install cmake
+```
+
+### make
+```cmd
+sudo apt-get install build-essential
+```
+
+### sfml
+```cmd
+sudo apt-get install libsfml-dev
+```
+
+### Setup
+
+To Setup Agarios execute:
+
+```cmd
+mkdir build
+```
 
 ### Building
 
@@ -28,6 +48,7 @@ make
 ## Running
 
 To Run Agarios execute:
+
 ```cmd
 ./build/agarios
 ```
@@ -35,6 +56,7 @@ To Run Agarios execute:
 ## Built With
 
 * [VS Code](https://code.visualstudio.com/) - Free. Built on open source. Runs everywhere.
+* [SFML](https://www.sfml-dev.org/) - SFML provides a simple interface to the various components of your PC, to ease the development of games and multimedia applications
 
 ## Authors
 
