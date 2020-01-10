@@ -3,10 +3,9 @@
 #include "services/Console.h"
 
 Blob::Blob(const GameConfig* gameConfig,
-           float mass, 
            sf::Vector2f position = sf::Vector2f(), 
            sf::Color color = sf::Color::Cyan) 
-           : RigidBody(gameConfig, mass, position, color) { }
+           : RigidBody(gameConfig, gameConfig->BLOB_INITIAL_MASS, position, color) { }
 
 sf::Vector2f Blob::getVelocity(sf::Vector2f inputVelocity) {
     Utils::Vectors::limit(inputVelocity, 1);

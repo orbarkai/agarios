@@ -9,7 +9,6 @@ class Blob : public RigidBody
 
     public:
         Blob(const GameConfig* gameConfig,
-             float mass, 
              sf::Vector2f position, 
              sf::Color color);
 

@@ -1,4 +1,5 @@
 #include <math.h>
+#include <sstream>
 #include "services/Utils.h"
 
 void Utils::Vectors::normalize(sf::Vector2f& v)
@@ -78,3 +79,30 @@ void Utils::Vectors::pointTo(sf::Vector2f& v1, sf::Vector2f& v2)
     Utils::Vectors::setAngle(v1, Utils::Vectors::getAngle(vectorToTarget));
     
 }
+
+std::string Utils::UUID() {
+
+    int abData[NBYTES];
+
+    for (int i = 0; i < NBYTES; i++) {
+        abData[i] = rand() % 255;
+    }
+    abData[6] = 0x40 | (abData[6] & 0xf);
+    abData[8] = 0x80 | (abData[8] & 0x3f);
+
+    std::stringstream hexStream;
+
+    for (int i = 0; i < NBYTES; i++) {
+        hexStream << std::hex <<  abData[i];
+    }
+
+    std::string uuid = hexStream.str();
+
+    uuid.insert(8, "-");
+    uuid.insert(13, "-");
+    uuid.insert(18, "-");
+    uuid.insert(23, "-");
+
+    // // Return the UUID string
+    return uuid;
+}  
