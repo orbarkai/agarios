@@ -13,3 +13,9 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         target.draw(this->blobs[i], states);
     }
 }
+
+void Player::update(sf::Vector2f inputVelocity) {
+    for (int i = 0; i < this->blobs.size(); i++) {
+        blobs[i].update(inputVelocity);
+    }
+}

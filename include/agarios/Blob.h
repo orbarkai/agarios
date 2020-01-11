@@ -7,13 +7,16 @@
 class Blob : public RigidBody
 {
 
+    protected:
+        sf::Vector2f velocity;
+
     public:
         Blob(const GameConfig* gameConfig,
              sf::Vector2f position, 
              sf::Color color);
 
     public:
-        sf::Vector2f getVelocity(sf::Vector2f inputVelocity);
+        void update(sf::Vector2f inputVelocity);
         float getSpeed();
         float getShrink();
 

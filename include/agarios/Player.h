@@ -15,6 +15,9 @@ class Player : public GameObject, public sf::Drawable
                sf::Vector2f position, 
                sf::Color color);
 
+    public:
+        void update(sf::Vector2f inputVelocity);
+
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
