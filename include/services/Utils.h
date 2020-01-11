@@ -26,6 +26,14 @@ namespace Utils
             }
             return maped;
         };
+
+        template<typename T>
+        bool includes(std::vector<T> arr, T key) {
+            for (int i = 0; i < arr.size(); i++) {
+                if (arr[i] == key) return true;
+            }
+            return false;
+        }
     } // namespace Arrays
 
     namespace Vectors

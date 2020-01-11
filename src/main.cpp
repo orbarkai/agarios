@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "services/Console.h"
 #include "services/Utils.h"
-#include "agarios/Player.h"
+#include "agarios/Game.h"
 
 int main()
 {
@@ -14,10 +14,10 @@ int main()
 
     gameConfig.BLOB_INITIAL_MASS = 20;
     gameConfig.BLOB_SHRINK_FACTOR = 0.001;
-    gameConfig.BLOB_SPEED_FACTOR = 4;
+    gameConfig.BLOB_SPEED_FACTOR = 1;
     gameConfig.VIRUS_COLOR = sf::Color::Green;
 
-    Player p(&gameConfig, {100, 100}, sf::Color::Cyan);
+    Game game(&gameConfig, true);
 
     // Declare and create a new render-window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
@@ -36,9 +36,11 @@ int main()
         }
         // Clear the whole window before rendering a new frame
         window.clear();
-        // Draw some graphical entities
-        window.draw(p);
 
+
+        game.update({1, 0});
+        // Draw some graphical entities
+        window.draw(game);
         // End the current frame and display its contents on screen
         window.display();
     }

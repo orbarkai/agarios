@@ -20,4 +20,7 @@ class Player : public GameObject, public sf::Drawable
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    public:
+        bool operator==(Player& rhs);
 };

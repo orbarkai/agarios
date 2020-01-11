@@ -19,3 +19,7 @@ void Player::update(sf::Vector2f inputVelocity) {
         blobs[i].update(inputVelocity);
     }
 }
+
+bool Player::operator==(Player& rhs) {
+    return this->UUID == rhs.UUID;
+}

@@ -103,6 +103,5 @@ std::string Utils::UUID() {
     uuid.insert(18, "-");
     uuid.insert(23, "-");
 
-    // // Return the UUID string
     return uuid;
 }  
