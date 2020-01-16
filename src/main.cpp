@@ -12,15 +12,21 @@ int main()
 
     GameConfig gameConfig = {};
 
+
+    gameConfig.WINDOW_HEIGHT = 600;
+    gameConfig.WINDOW_WIDTH = 800;
+    gameConfig.CAMERA_ZOOM = 0.02;
+
     gameConfig.BLOB_INITIAL_MASS = 20;
     gameConfig.BLOB_SHRINK_FACTOR = 0.001;
     gameConfig.BLOB_SPEED_FACTOR = 1;
+
     gameConfig.VIRUS_COLOR = sf::Color::Green;
 
-    Game game(&gameConfig, true);
+    Game game(gameConfig, true);
 
     // Declare and create a new render-window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(gameConfig.WINDOW_WIDTH, gameConfig.WINDOW_HEIGHT), "SFML window");
     // Limit the framerate to 60 frames per second (this step is optional)
     window.setFramerateLimit(60);
     // The main loop - ends as soon as the window is closed
@@ -33,10 +39,18 @@ int main()
             // Request for closing the window
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (event.type == sf::Event::Resized)
+            {
+                // update the view to the new size of the window
+                game.gameConfig.WINDOW_WIDTH  = event.size.width;
+                game.gameConfig.WINDOW_HEIGHT = event.size.height;
+            }
         }
         // Clear the whole window before rendering a new frame
         window.clear();
 
+        window.setView(game.camera.getView());
 
         game.update({1, 0});
         // Draw some graphical entities

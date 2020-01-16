@@ -1,16 +1,16 @@
 #ifndef GAME_OBJECT_H_
 #define GAME_OBJECT_H_
 
-#include "agarios/GameConfig.h"
+class Game;
 
 class GameObject
 {
 
     protected:
-        const GameConfig* gameConfig;
+        const Game* game;
 
     public:
-        GameObject(const GameConfig* gameConfig);
+        GameObject(const Game* game);
 
 };
 

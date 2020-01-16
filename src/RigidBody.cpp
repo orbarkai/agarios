@@ -1,13 +1,13 @@
 #include "cmath"
 #include "agarios/RigidBody.h"
 
-RigidBody::RigidBody(const GameConfig* gameConfig,
+RigidBody::RigidBody(const Game* game,
                      float mass, 
                      sf::Vector2f position = sf::Vector2f(), 
                      sf::Color color = sf::Color::Cyan) 
                      : mass(mass), 
                      sf::CircleShape(this->getRadius()),
-                     GameObject(gameConfig) {
+                     GameObject(game) {
 
     this->setFillColor(color);
     this->setPosition(position);
@@ -28,3 +28,7 @@ float RigidBody::getMass() {
 float RigidBody::getRadius() {
     return std::sqrt(this->mass / M_PI);
 };
+
+sf::Vector2f RigidBody::getCenter() {
+    return this->getPosition() + sf::Vector2f(this->getRadius(), this->getRadius());
+}

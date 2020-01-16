@@ -1,3 +1,3 @@
 #include "agarios/GameObject.h"
 
-GameObject::GameObject(const GameConfig* gameConfig) : gameConfig(gameConfig) {};
+GameObject::GameObject(const Game* game) : game(game) {};

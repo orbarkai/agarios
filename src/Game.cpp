@@ -2,14 +2,16 @@
 #include "services/Utils.h"
 #include "services/Console.h"
 
-Game::Game(GameConfig* gameConfig, bool initiateMainPlayer)
-          : GameObject(gameConfig),
-            players(std::vector<Player>()) {
+Game::Game(GameConfig gameConfig, bool initiateMainPlayer)
+          : gameConfig(gameConfig),
+            players(std::vector<Player>()),
+            camera(this, NULL) {
 
     if (initiateMainPlayer) {
-        Player* mainPlayer = new Player(gameConfig, {100, 100}, sf::Color::Cyan);
+        Player* mainPlayer = new Player(this, {100, 100}, sf::Color::Cyan);
         this->players.push_back(*mainPlayer);
         this->mainPlayer = mainPlayer;
+        this->camera.setTarget(mainPlayer);
     } else {
         this->mainPlayer = NULL;
     }
@@ -23,6 +25,7 @@ Player* Game::getMainPlayer() {
 void Game::setMainPlayer(Player player) {
     if (Utils::Arrays::includes<Player>(this->players, player)) {
         this->mainPlayer = &player;
+        this->camera.setTarget(this->mainPlayer);
     }
 }
 

@@ -6,6 +6,11 @@
 struct GameConfig 
 {
 
+    float WINDOW_WIDTH;
+    float WINDOW_HEIGHT;
+
+    float CAMERA_ZOOM;
+
     sf::Color VIRUS_COLOR;
 
     float BLOB_INITIAL_MASS;
