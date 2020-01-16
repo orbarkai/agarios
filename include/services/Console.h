@@ -1,6 +1,10 @@
+#ifndef CONSOLE_H_
+#define CONSOLE_H_
+
 #include <string>
 #include <map>
 #include <vector>
+#include <iostream>
 
 class Console
 {
@@ -45,8 +49,6 @@ class Console
 
         static std::string paint(std::string color, std::string message);
 
-        
-
     private:
         const static std::map<std::string, std::string> colorsMap;
         static std::map<std::string, std::string> directorsMap;
@@ -64,3 +66,5 @@ class Console
     private:
         static std::string getColor(std::string director);
 };
+
+#endif
