@@ -3,7 +3,7 @@
 #include "services/Console.h"
 #include "agarios/Game.h"
 
-Blob::Blob(const Game* game,
+Blob::Blob(Game* game,
            sf::Vector2f position = sf::Vector2f(), 
            sf::Color color = sf::Color::Cyan) 
            : RigidBody(game, game->gameConfig.BLOB_INITIAL_MASS, position, color),

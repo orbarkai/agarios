@@ -21,8 +21,8 @@ sf::Vector2f Camera::getPosition() const {
 }
 
 sf::Vector2f Camera::getScale() const {
-    sf::Vector2f scale(this->game->gameConfig.CAMERA_ZOOM * this->game->gameConfig.WINDOW_WIDTH,
-                       this->game->gameConfig.CAMERA_ZOOM * this->game->gameConfig.WINDOW_HEIGHT);
+    sf::Vector2f scale(this->game->gameConfig.CAMERA_ZOOM * this->game->getWindowSize().x,
+                       this->game->gameConfig.CAMERA_ZOOM * this->game->getWindowSize().y);
 
     return scale;
 } 

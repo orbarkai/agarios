@@ -1,6 +1,9 @@
 #include "agarios/Game.h"
+
 #include "services/Utils.h"
 #include "services/Console.h"
+
+#include "agarios/window.h"
 
 Game::Game(GameConfig gameConfig, bool initiateMainPlayer)
           : gameConfig(gameConfig),
@@ -43,4 +46,11 @@ void Game::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (int i = 0; i < this->players.size(); i++) {
         target.draw(this->players[i], states);
     }
+}
+
+sf::Vector2u Game::getWindowSize() const {
+    if (this->window) return this->window->getSize();
+    
+    return {(unsigned int)this->gameConfig.WINDOW_WIDTH, 
+            (unsigned int)this->gameConfig.WINDOW_HEIGHT};
 }

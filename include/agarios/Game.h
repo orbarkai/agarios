@@ -5,16 +5,20 @@
 #include "agarios/GameConfig.h"
 #include "agarios/Camera.h"
 
+class Window;
+
 class Game : public sf::Drawable
 {
 
     public:
         GameConfig gameConfig;
         Camera camera;
+        Window* window;
 
     private:
         std::vector<Player> players;
         Player* mainPlayer;
+       
 
     public:
         Game(GameConfig gameConfig, bool initiateMainPlayer);
@@ -23,6 +27,7 @@ class Game : public sf::Drawable
         void update(sf::Vector2f inputVelocity);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+        sf::Vector2u getWindowSize() const;
 
         Player* getMainPlayer();
         void setMainPlayer(Player player);
