@@ -10,7 +10,7 @@ class RigidBody : public sf::CircleShape, public GameObject
         float mass;
 
     public:
-        RigidBody(const Game* game,
+        RigidBody(Game* game,
                   float mass, 
                   sf::Vector2f position, 
                   sf::Color color);

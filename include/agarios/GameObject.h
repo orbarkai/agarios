@@ -7,10 +7,10 @@ class GameObject
 {
 
     protected:
-        const Game* game;
+        Game* game;
 
     public:
-        GameObject(const Game* game);
+        GameObject(Game* game);
 
 };
 

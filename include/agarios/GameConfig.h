@@ -6,8 +6,8 @@
 struct GameConfig 
 {
 
-    float WINDOW_WIDTH;
-    float WINDOW_HEIGHT;
+    unsigned int WINDOW_WIDTH;
+    unsigned int WINDOW_HEIGHT;
 
     float CAMERA_ZOOM;
 

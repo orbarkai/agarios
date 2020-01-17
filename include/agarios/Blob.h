@@ -11,7 +11,7 @@ class Blob : public RigidBody
         sf::Vector2f velocity;
 
     public:
-        Blob(const Game* game,
+        Blob(Game* game,
              sf::Vector2f position, 
              sf::Color color);
 

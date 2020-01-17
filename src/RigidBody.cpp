@@ -1,7 +1,7 @@
 #include "cmath"
 #include "agarios/RigidBody.h"
 
-RigidBody::RigidBody(const Game* game,
+RigidBody::RigidBody(Game* game,
                      float mass, 
                      sf::Vector2f position = sf::Vector2f(), 
                      sf::Color color = sf::Color::Cyan) 
