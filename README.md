@@ -6,6 +6,8 @@ An implementation of agar.io with trainable bots, based on so
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+**Notice -** Agarios is currently implemented on **Linux only** 
+
 ### Prerequisites
 
 What things you need to install the software and how to install them
