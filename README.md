@@ -27,7 +27,7 @@ sudo apt-get install build-essential
 sudo apt-get install libsfml-dev
 ```
 
-### Setup
+## Setup
 
 To Setup Agarios execute:
 
@@ -35,7 +35,7 @@ To Setup Agarios execute:
 mkdir build
 ```
 
-### Building
+## Building
 
 To Build Agarios execute:
 
