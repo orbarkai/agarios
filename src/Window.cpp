@@ -1,14 +1,19 @@
 #include "agarios/window.h"
 #include "services/Console.h"
 
-Window::Window(Game* game)
+Window::Window(Game* game, Player* mainPlayer=NULL)
                : sf::RenderWindow({game->gameConfig.WINDOW_WIDTH,
                                    game->gameConfig.WINDOW_HEIGHT},
                                    "Agarios")
-               , GameObject(game) {
+               , GameObject(game)
+               , camera(this, NULL) {
 
     this->setGame(game);
+    this->setMainPlayer(mainPlayer);
 
+    if (this->game && !this->mainPlayer) {
+        this->setMainPlayer(this->game->join());
+    }
 }
 
 void Window::run() {
@@ -26,9 +31,9 @@ void Window::run() {
 
         this->clear();
 
-        this->setView(this->game->camera.getView());
+        this->setView(this->camera.getView());
 
-        this->game->update({1, 0});
+        this->game->update({{this->mainPlayer->UUID, {1, 0}}});
 
         this->draw(*this->game);
 
@@ -37,11 +42,20 @@ void Window::run() {
 }
 
 void Window::setGame(Game* game) {
-    if (this->game) this->game->window = NULL;
     this->game = game;
-    this->game->window = this;
 }
 
 Game* Window::getGame() const{
     return this->game;
+}
+
+Player* Window::getMainPlayer() {
+    return this->mainPlayer;
+}
+
+void Window::setMainPlayer(Player* player) {
+    this->mainPlayer = player;
+    if (this->mainPlayer) {
+        this->camera.setTarget(this->mainPlayer);
+    }
 }

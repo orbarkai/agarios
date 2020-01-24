@@ -23,9 +23,9 @@ int main()
 
     gameConfig.VIRUS_COLOR = sf::Color::Green;
 
-    Game game(gameConfig, true);
+    Game game(gameConfig);
 
-    Window window(&game);
+    Window window(&game, NULL);
 
     window.run();
 

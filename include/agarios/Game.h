@@ -1,36 +1,32 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#include <unordered_map>
 #include "agarios/Player.h"
 #include "agarios/GameConfig.h"
-#include "agarios/Camera.h"
 
 class Window;
+
+typedef std::unordered_map<std::string, sf::Vector2f> PlayersInput;
+typedef std::unordered_map<std::string, Player> Players;
 
 class Game : public sf::Drawable
 {
 
     public:
         GameConfig gameConfig;
-        Camera camera;
-        Window* window;
 
     private:
-        std::vector<Player> players;
-        Player* mainPlayer;
-       
+        Players players;
 
     public:
-        Game(GameConfig gameConfig, bool initiateMainPlayer);
+        Game(GameConfig gameConfig);
 
     public:
-        void update(sf::Vector2f inputVelocity);
+        void update(PlayersInput playersInput);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-        sf::Vector2u getWindowSize() const;
-
-        Player* getMainPlayer();
-        void setMainPlayer(Player player);
+        Player* join();
 
 };
 

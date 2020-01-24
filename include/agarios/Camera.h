@@ -3,19 +3,20 @@
 
 
 #include "SFML/Graphics.hpp"
-#include "agarios/GameObject.h"
 
+class Window;
 class Player;
 
-class Camera : public GameObject
+class Camera
 {
 
     private:
+        Window* window;
         Player* target;
         sf::View view;
 
     public:
-        Camera(Game* game, Player* target);
+        Camera(Window* window, Player* target);
 
     public:
         sf::View getView();
