@@ -9,7 +9,6 @@
 
 class Game;
 
-
 class Player : public sf::Drawable, public GameObject
 {
 
@@ -27,10 +26,10 @@ class Player : public sf::Drawable, public GameObject
 
     public:
         void update(sf::Vector2f inputVelocity);
-        sf::Vector2f getPosition();
+        sf::Vector2f getPosition() const;
 
     private:
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     public:
         bool operator==(Player& rhs);

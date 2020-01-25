@@ -6,8 +6,6 @@ Camera::Camera(Window* window, Player* target)
                , window(window) { }
 
 sf::View Camera::getView() {
-    sf::Transform transform;
-
     this->view.setSize(this->getScale());
     this->view.setCenter(this->getPosition());
     
@@ -26,7 +24,7 @@ sf::Vector2f Camera::getScale() const {
     return scale;
 } 
 
-void Camera::setTarget(Player* target) {
+void Camera::setTarget(Player* const target) {
     this->target = target;
 }
 

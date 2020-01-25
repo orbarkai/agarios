@@ -2,8 +2,6 @@
 #include <regex>
 #include "services/Console.h"
 
-typedef std::map<std::string, std::string> MapSS;
-
 int Console::nextColor = 0;
 
 const int Console::sectionLength = 30;

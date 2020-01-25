@@ -21,10 +21,10 @@ void Blob::update(sf::Vector2f inputVelocity) {
     this->setPosition(this->getPosition() + this->velocity);
 }
 
-float Blob::getSpeed() {
+float Blob::getSpeed() const {
     return this->game->gameConfig.BLOB_SPEED_FACTOR / this->getMass();
 }
 
-float Blob::getShrink() {
+float Blob::getShrink() const {
     return this->getMass() * this->game->gameConfig.BLOB_SHRINK_FACTOR;
 }

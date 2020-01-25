@@ -16,9 +16,9 @@ class Blob : public RigidBody
              sf::Color color);
 
     public:
-        void update(sf::Vector2f inputVelocity);
-        float getSpeed();
-        float getShrink();
+        void update(sf::Vector2f inputVelocity) ;
+        float getSpeed() const;
+        float getShrink() const;
 
 };
 

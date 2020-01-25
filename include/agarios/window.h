@@ -21,11 +21,11 @@ class Window : public sf::RenderWindow, private GameObject
         void run();
 
     public:
-        void setGame(Game* game);
+        void setGame(Game* const game);
         Game* getGame() const;
 
-        Player* getMainPlayer();
-        void setMainPlayer(Player* player);
+        Player* getMainPlayer() const;
+        void setMainPlayer(Player* const player);
 
 };
 

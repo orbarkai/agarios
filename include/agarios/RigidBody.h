@@ -17,9 +17,9 @@ class RigidBody : public sf::CircleShape, public GameObject
 
     public:
         virtual void addMass(float modifier);
-        float getMass();
-        float getRadius();
-        sf::Vector2f getCenter();
+        float getMass() const;
+        float getRadius() const;
+        sf::Vector2f getCenter() const;
 };
 
 #endif
