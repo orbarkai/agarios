@@ -6,6 +6,8 @@
 #include <vector>
 #include <iostream>
 
+typedef std::map<std::string, std::string> MapSS;
+
 class Console
 {
 
@@ -22,7 +24,6 @@ class Console
                 Logger();
                 Logger(std::string name, std::string loggerConsoleColor);
                 Logger(std::string name, std::string loggerConsoleColor, std::string messageConsoleColor);
-
                 ~Logger();
 
             public:
@@ -40,6 +41,11 @@ class Console
         };
 
     public:
+        const static std::string endl;
+        const static std::string tab;
+
+    public:
+        static Logger log(std::string director, std::string directorColor) noexcept;
         static Logger log(std::string director) noexcept;
         static Logger log() noexcept;
         static Logger error(std::string director) noexcept;
@@ -50,14 +56,11 @@ class Console
         static std::string paint(std::string color, std::string message);
 
     private:
-        const static std::map<std::string, std::string> colorsMap;
-        static std::map<std::string, std::string> directorsMap;
+        const static MapSS colorsMap;
+        static MapSS directorsMap;
         static int nextColor;
         const static std::string resetColor;
         const static int sectionLength;
-
-        const static std::string endl;
-        const static std::string tab;
 
         
     private:

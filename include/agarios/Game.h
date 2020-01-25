@@ -24,7 +24,7 @@ class Game : public sf::Drawable
 
     public:
         void update(PlayersInput playersInput);
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         Player* join();
 

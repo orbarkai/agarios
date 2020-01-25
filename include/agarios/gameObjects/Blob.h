@@ -2,7 +2,7 @@
 #define BLOB_H_
 
 #include "SFML/System.hpp"
-#include "agarios/RigidBody.h"
+#include "agarios/gameObjects/RigidBody.h"
 
 class Blob : public RigidBody
 {
@@ -16,9 +16,9 @@ class Blob : public RigidBody
              sf::Color color);
 
     public:
-        void update(sf::Vector2f inputVelocity);
-        float getSpeed();
-        float getShrink();
+        void update(sf::Vector2f inputVelocity) ;
+        float getSpeed() const;
+        float getShrink() const;
 
 };
 

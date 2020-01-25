@@ -41,19 +41,19 @@ void Window::run() {
     }
 }
 
-void Window::setGame(Game* game) {
+void Window::setGame(Game* const game) {
     this->game = game;
 }
 
-Game* Window::getGame() const{
+Game* Window::getGame() const {
     return this->game;
 }
 
-Player* Window::getMainPlayer() {
+Player* Window::getMainPlayer() const {
     return this->mainPlayer;
 }
 
-void Window::setMainPlayer(Player* player) {
+void Window::setMainPlayer(Player* const player) {
     this->mainPlayer = player;
     if (this->mainPlayer) {
         this->camera.setTarget(this->mainPlayer);

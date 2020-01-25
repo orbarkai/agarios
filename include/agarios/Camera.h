@@ -21,7 +21,7 @@ class Camera
     public:
         sf::View getView();
 
-        void setTarget(Player* target);
+        void setTarget(Player* const target);
         Player* getTarget() const;
 
     private:

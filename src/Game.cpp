@@ -5,7 +5,19 @@
 
 Game::Game(GameConfig gameConfig)
     : gameConfig(gameConfig),
-      players({}) {}
+      players({}) {
+
+        Console::startSection(Console::paint("magenta", "Game Config"));
+        Console::log("Window Width",      "green") << gameConfig.WINDOW_WIDTH       << "px";
+        Console::log("Window Height",     "green") << gameConfig.WINDOW_HEIGHT      << "px";
+        Console::log("Camera Zoom",       "green") << gameConfig.CAMERA_ZOOM        << "x";
+        Console::endSection();
+        Console::log("Blob Initial Mass", "green") << gameConfig.BLOB_INITIAL_MASS;
+        Console::log("Blob Shrink",       "green") << gameConfig.BLOB_SHRINK_FACTOR << "x";
+        Console::log("Blob Speed",        "green") << gameConfig.BLOB_SPEED_FACTOR << "x";
+        Console::endSection();
+
+      }
 
 void Game::update(PlayersInput playersInput)
 {
