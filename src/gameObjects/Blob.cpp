@@ -1,4 +1,4 @@
-#include "agarios/Blob.h"
+#include "agarios/gameObjects/Blob.h"
 #include "services/Utils.h"
 #include "services/Console.h"
 #include "agarios/Game.h"

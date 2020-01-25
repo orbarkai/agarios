@@ -5,7 +5,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "agarios/GameObject.h"
-#include "agarios/Blob.h"
+#include "agarios/gameObjects/Blob.h"
 
 class Game;
 

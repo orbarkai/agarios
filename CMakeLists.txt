@@ -14,7 +14,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include_directories(include)
 
 #However, the file(GLOB...) allows for wildcard additions:
-file(GLOB SOURCES "src/*.cpp" "src/**/*.cpp")
+file(GLOB SOURCES "src/*.cpp" "src/**/*.cpp", "src/**/**/*.cpp")
 
 add_executable(agarios ${SOURCES})
 

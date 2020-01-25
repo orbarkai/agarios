@@ -1,5 +1,5 @@
 #include "cmath"
-#include "agarios/RigidBody.h"
+#include "agarios/gameObjects/RigidBody.h"
 
 RigidBody::RigidBody(Game* game,
                      float mass, 

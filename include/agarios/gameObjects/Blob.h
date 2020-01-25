@@ -2,7 +2,7 @@
 #define BLOB_H_
 
 #include "SFML/System.hpp"
-#include "agarios/RigidBody.h"
+#include "agarios/gameObjects/RigidBody.h"
 
 class Blob : public RigidBody
 {
