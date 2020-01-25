@@ -6,7 +6,7 @@ typedef std::map<std::string, std::string> MapSS;
 
 int Console::nextColor = 0;
 
-const int Console::sectionLength = 20;
+const int Console::sectionLength = 30;
 
 const MapSS Console::colorsMap = {
     {"red", "\x1B[31m"},
@@ -71,6 +71,13 @@ std::string Console::paint(std::string color, std::string message) {
     }
     
     return consoleColor + message + resetColor;
+}
+
+Console::Logger Console::log(std::string director, std::string directorColor) noexcept {
+    std::string consoleColor = "";
+    MapSS::const_iterator colorI = colorsMap.find(directorColor);
+    if (colorI != colorsMap.cend()) consoleColor = colorI->second;
+    return Logger(director, consoleColor);
 }
 
 Console::Logger Console::log(std::string director) noexcept {

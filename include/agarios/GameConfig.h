@@ -17,6 +17,14 @@ struct GameConfig
     float BLOB_SPEED_FACTOR;
     float BLOB_SHRINK_FACTOR;
 
+    GameConfig() 
+    : WINDOW_WIDTH(1280)
+    , WINDOW_HEIGHT(720)
+    , CAMERA_ZOOM(0.02)
+    , BLOB_INITIAL_MASS(20)
+    , BLOB_SHRINK_FACTOR(0.001)
+    , BLOB_SPEED_FACTOR(1)
+    , VIRUS_COLOR(sf::Color::Green) { }
 };
 
 #endif

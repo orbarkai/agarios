@@ -40,6 +40,11 @@ class Console
         };
 
     public:
+        const static std::string endl;
+        const static std::string tab;
+
+    public:
+        static Logger log(std::string director, std::string directorColor) noexcept;
         static Logger log(std::string director) noexcept;
         static Logger log() noexcept;
         static Logger error(std::string director) noexcept;
@@ -55,9 +60,6 @@ class Console
         static int nextColor;
         const static std::string resetColor;
         const static int sectionLength;
-
-        const static std::string endl;
-        const static std::string tab;
 
         
     private:
