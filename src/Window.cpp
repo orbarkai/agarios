@@ -33,7 +33,7 @@ void Window::run() {
 
         this->setView(this->camera.getView());
 
-        this->game->update({{this->mainPlayer->UUID, {1, 0}}});
+        this->game->update({{this->mainPlayer->UUID, {0, 0}}});
 
         this->draw(*this->game);
 

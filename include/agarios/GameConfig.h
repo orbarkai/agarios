@@ -10,6 +10,7 @@ struct GameConfig
     unsigned int WINDOW_HEIGHT;
 
     float CAMERA_ZOOM;
+    float GRID_MARGIN;
 
     sf::Color VIRUS_COLOR;
 
@@ -20,9 +21,10 @@ struct GameConfig
     GameConfig() 
     : WINDOW_WIDTH(1280)
     , WINDOW_HEIGHT(720)
-    , CAMERA_ZOOM(0.02)
+    , CAMERA_ZOOM(4)
+    , GRID_MARGIN(1.5)
     , BLOB_INITIAL_MASS(20)
-    , BLOB_SHRINK_FACTOR(0.001)
+    , BLOB_SHRINK_FACTOR(0.0005)
     , BLOB_SPEED_FACTOR(1)
     , VIRUS_COLOR(sf::Color::Green) { }
 };

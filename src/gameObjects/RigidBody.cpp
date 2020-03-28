@@ -12,13 +12,22 @@ RigidBody::RigidBody(Game* game,
     this->setFillColor(color);
     this->setPosition(position);
     this->setRadius(this->getRadius());
-
+    this->updateOrigin();
 }
 
 
-void RigidBody::addMass(float modifier) {
-    this->mass += modifier;
-    this->mass = std::min<float>(this->mass, 0);
+void RigidBody::addMass(const float modifier) {
+    this->setMass(this->mass + modifier);
+}
+
+void RigidBody::setMass(const float mass) {
+    this->mass = std::max<float>(mass, 0);
+    this->updateOrigin();
+}
+
+void RigidBody::updateOrigin() {
+    this->setRadius(this->getRadius());
+    this->setOrigin(this->getRadius(), this->getRadius());
 }
 
 float RigidBody::getMass() const {
@@ -28,7 +37,3 @@ float RigidBody::getMass() const {
 float RigidBody::getRadius() const {
     return std::sqrt(this->mass / M_PI);
 };
-
-sf::Vector2f RigidBody::getCenter() const {
-    return this->getPosition() + sf::Vector2f(this->getRadius(), this->getRadius());
-}

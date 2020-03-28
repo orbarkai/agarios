@@ -1,28 +1,22 @@
 #include "agarios/Camera.h"
 #include "agarios/window.h"
+#include "services/Console.h"
+#include "services/Utils.h"
 
 Camera::Camera(Window* window, Player* target)
                : target(target)
                , window(window) { }
 
 sf::View Camera::getView() {
-    this->view.setSize(this->getScale());
-    this->view.setCenter(this->getPosition());
+
+    sf::FloatRect bBox = this->target->getBBox();
+    bBox.width = bBox.width * ((float)this->window->getSize().x / (float)this->window->getSize().y);
+    this->view.reset(bBox);
+    this->view.setCenter(this->target->getPosition());
+    this->view.zoom(this->window->game->gameConfig.CAMERA_ZOOM);
     
     return this->view;
 }
-
-sf::Vector2f Camera::getPosition() const {
-    if (this->target) return this->target->getPosition();
-    return {0, 0};
-}
-
-sf::Vector2f Camera::getScale() const {
-    sf::Vector2f scale(this->window->game->gameConfig.CAMERA_ZOOM * this->window->getSize().x,
-                       this->window->game->gameConfig.CAMERA_ZOOM * this->window->getSize().y);
-
-    return scale;
-} 
 
 void Camera::setTarget(Player* const target) {
     this->target = target;

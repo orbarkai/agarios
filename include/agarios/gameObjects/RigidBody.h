@@ -16,10 +16,11 @@ class RigidBody : public sf::CircleShape, public GameObject
                   sf::Color color);
 
     public:
-        virtual void addMass(float modifier);
+        virtual void addMass(const float modifier);
+        virtual void setMass(const float mass);
+        void updateOrigin();
         float getMass() const;
         float getRadius() const;
-        sf::Vector2f getCenter() const;
 };
 
 #endif

@@ -38,12 +38,44 @@ void Game::update(PlayersInput playersInput)
 
 void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+    this->drawGrid(target, states);
+    
     Players::const_iterator it = this->players.begin();
     while (it != this->players.cend())
     {
         target.draw(it->second, states);
 
         it++;
+    }
+}
+
+void Game::drawGrid(sf::RenderTarget& target, sf::RenderStates states) const {
+    sf::Vector2f topLeft = target.mapPixelToCoords({0, 0});
+    sf::Vector2f bottomRight = target.mapPixelToCoords({(int)target.getSize().x, (int)target.getSize().y});
+
+    for (float i = 0; i < bottomRight.x; i += this->gameConfig.GRID_MARGIN) {
+        if (i >= topLeft.x) {
+            sf::Vertex lineY[2];
+            lineY[0].position = sf::Vector2f(i, topLeft.y);
+            lineY[0].color  = sf::Color::White;
+            lineY[1].position = sf::Vector2f(i, bottomRight.y);
+            lineY[1].color = sf::Color::White;
+
+            target.draw(lineY, 2, sf::Lines, states);
+        }
+    }
+
+
+    for (float i = 0; i < bottomRight.y; i += this->gameConfig.GRID_MARGIN) {
+        if (i >= topLeft.y) {
+            sf::Vertex lineX[2];
+            lineX[0].position = sf::Vector2f(topLeft.x, i);
+            lineX[0].color  = sf::Color::White;
+            lineX[1].position = sf::Vector2f(bottomRight.x, i);
+            lineX[1].color = sf::Color::White;
+
+            target.draw(lineX, 2, sf::Lines, states);
+        }
     }
 }
 

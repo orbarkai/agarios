@@ -27,6 +27,8 @@ class Player : public sf::Drawable, public GameObject
     public:
         void update(sf::Vector2f inputVelocity);
         sf::Vector2f getPosition() const;
+        sf::FloatRect getBBox() const;
+        sf::RectangleShape getBBoxShape() const;
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

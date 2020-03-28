@@ -28,6 +28,9 @@ class Game : public sf::Drawable
 
         Player* join();
 
+    private:
+        void drawGrid(sf::RenderTarget& target, sf::RenderStates states) const;
+
 };
 
 #endif

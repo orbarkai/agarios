@@ -24,10 +24,6 @@ class Camera
         void setTarget(Player* const target);
         Player* getTarget() const;
 
-    private:
-        sf::Vector2f getScale() const;
-        sf::Vector2f getPosition() const;
-
 };
 
 #endif
