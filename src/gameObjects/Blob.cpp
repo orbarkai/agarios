@@ -14,7 +14,7 @@ void Blob::update(sf::Vector2f inputVelocity) {
     // Velocity 
     Utils::Vectors::limit(inputVelocity, 1);
     sf::Vector2f velocityDelta = inputVelocity * this->getSpeed();
-    this->velocity += velocityDelta;
+    this->velocity = velocityDelta;
     Utils::Vectors::limit(this->velocity, this->getSpeed());
 
     // Shrink

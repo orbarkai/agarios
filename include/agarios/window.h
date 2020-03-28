@@ -27,6 +27,9 @@ class Window : public sf::RenderWindow, private GameObject
         Player* getMainPlayer() const;
         void setMainPlayer(Player* const player);
 
+    private:
+        sf::Vector2f getPlayerInput();
+
 };
 
 #endif

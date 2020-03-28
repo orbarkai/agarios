@@ -25,7 +25,7 @@ struct GameConfig
     , GRID_MARGIN(1.5)
     , BLOB_INITIAL_MASS(20)
     , BLOB_SHRINK_FACTOR(0.0005)
-    , BLOB_SPEED_FACTOR(1)
+    , BLOB_SPEED_FACTOR(1.7)
     , VIRUS_COLOR(sf::Color::Green) { }
 };
 

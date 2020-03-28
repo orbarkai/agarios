@@ -1,5 +1,7 @@
 #include "agarios/window.h"
 #include "services/Console.h"
+#include "services/Utils.h"
+
 
 Window::Window(Game* game, Player* mainPlayer=NULL)
                : sf::RenderWindow({game->gameConfig.WINDOW_WIDTH,
@@ -33,7 +35,9 @@ void Window::run() {
 
         this->setView(this->camera.getView());
 
-        this->game->update({{this->mainPlayer->UUID, {0, 0}}});
+        this->getPlayerInput();
+
+        this->game->update({{this->mainPlayer->UUID, this->getPlayerInput()}});
 
         this->draw(*this->game);
 
@@ -58,4 +62,17 @@ void Window::setMainPlayer(Player* const player) {
     if (this->mainPlayer) {
         this->camera.setTarget(this->mainPlayer);
     }
+}
+
+sf::Vector2f Window::getPlayerInput() {
+    sf::Vector2i center = {(float)this->getSize().x / 2.0, (float)this->getSize().y / 2.0};
+    sf::Vector2i mouse = sf::Mouse::getPosition(*this);
+
+    sf::Vector2f input = {mouse.x - center.x, mouse.y - center.y};
+    float maxRadius = (float)std::min<unsigned int>(this->getSize().x, this->getSize().y) * 0.3;
+
+    Utils::Vectors::limit(input, maxRadius);
+    input /= maxRadius;
+    
+    return input;
 }
