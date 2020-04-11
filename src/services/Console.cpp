@@ -7,13 +7,13 @@ int Console::nextColor = 0;
 const int Console::sectionLength = 30;
 
 const MapSS Console::colorsMap = {
-    {"red", "\x1B[31m"},
-    {"green", "\x1B[32m"},
-    {"yellow", "\x1B[33m"},
-    {"blue", "\x1B[34m"},
-    {"magenta", "\x1B[35m"},
-    {"cyan", "\x1B[36m"},
-    {"white", "\x1B[37m"},
+    {"red", "\x1B[1;31m"},
+    {"green", "\x1B[1;32m"},
+    {"yellow", "\x1B[1;33m"},
+    {"blue", "\x1B[1;34m"},
+    {"magenta", "\x1B[1;35m"},
+    {"cyan", "\x1B[1;36m"},
+    {"white", "\x1B[1;37m"},
 };
 
 const std::string Console::resetColor = "\x1B[0m";
@@ -95,9 +95,9 @@ Console::Logger Console::error(std::string director) noexcept {
 }
 
 void Console::startSection(std::string title) noexcept {
-    std::regex regex("\x1B\\[\\d?\\dm");
+    std::regex regex("\x1B\\[..\\d?\\dm");
     std::string titleNoColor = std::regex_replace(title, regex, "");
-    const int minimized = (sectionLength / 2) - (titleNoColor.size() / 2) - 2;
+    const int minimized = (sectionLength / 2) - (titleNoColor.size() / 2);
 
     for (int i = 0; i < minimized; i++) {
         std::cout << "-";
