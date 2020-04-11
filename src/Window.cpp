@@ -73,10 +73,10 @@ void Window::setMainPlayer(Player* const player) {
 }
 
 sf::Vector2f Window::getPlayerInput() {
-    sf::Vector2i center = {(float)this->getSize().x / 2.0, (float)this->getSize().y / 2.0};
+    sf::Vector2f center = {(float)this->getSize().x / (float)2.0, (float)this->getSize().y / (float)2.0};
     sf::Vector2i mouse = sf::Mouse::getPosition(*this);
 
-    sf::Vector2f input = {mouse.x - center.x, mouse.y - center.y};
+    sf::Vector2f input = {(float)mouse.x - (float)center.x, (float)mouse.y - (float)center.y};
     float maxRadius = (float)std::min<unsigned int>(this->getSize().x, this->getSize().y) * 0.3;
 
     Utils::Vectors::limit(input, maxRadius);
