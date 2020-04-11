@@ -14,6 +14,7 @@ class Camera
         Window* window;
         Player* target;
         sf::View view;
+        float zoom;
 
     public:
         Camera(Window* window, Player* target);
@@ -23,6 +24,9 @@ class Camera
 
         void setTarget(Player* const target);
         Player* getTarget() const;
+
+        void setZoom(float const zoom);
+        float getZoom() const;
 
 };
 

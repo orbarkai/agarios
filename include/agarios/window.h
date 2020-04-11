@@ -29,7 +29,7 @@ class Window : public sf::RenderWindow, private GameObject
 
     private:
         sf::Vector2f getPlayerInput();
-
+    
 };
 
 #endif

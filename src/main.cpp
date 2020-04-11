@@ -15,6 +15,7 @@ int main()
     Console::log();
 
     GameConfig gameConfig = {};
+    gameConfig.GAME_MODE = GameConfig::GameMode::DEV;
     Game game(gameConfig);
     Window window(&game, NULL);
 

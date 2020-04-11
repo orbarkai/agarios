@@ -6,6 +6,10 @@
 struct GameConfig 
 {
 
+    enum class GameMode {DEV, PRODUCTION, GOD};
+
+    GameMode GAME_MODE;
+
     unsigned int WINDOW_WIDTH;
     unsigned int WINDOW_HEIGHT;
 
@@ -19,7 +23,8 @@ struct GameConfig
     float BLOB_SHRINK_FACTOR;
 
     GameConfig() 
-    : WINDOW_WIDTH(1280)
+    : GAME_MODE(GameMode::PRODUCTION)
+    , WINDOW_WIDTH(1280)
     , WINDOW_HEIGHT(720)
     , CAMERA_ZOOM(4)
     , GRID_MARGIN(1.5)

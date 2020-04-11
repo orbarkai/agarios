@@ -27,8 +27,16 @@ void Window::run() {
         while (this->pollEvent(event))
         {
             // Request for closing the window
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
                 this->close();
+            }
+                
+            if (event.type == sf::Event::MouseWheelMoved) {
+                if (this->game->gameConfig.GAME_MODE == GameConfig::GameMode::DEV || this->game->gameConfig.GAME_MODE == GameConfig::GameMode::GOD) {
+                    float delta = event.mouseWheel.delta;
+                    this->camera.setZoom(this->camera.getZoom() - delta);
+                }
+            }
         }
 
         this->clear();
