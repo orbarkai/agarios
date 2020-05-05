@@ -1,5 +1,6 @@
 #include "cmath"
 #include "agarios/gameObjects/RigidBody.h"
+#include "services/Utils.h"
 
 RigidBody::RigidBody(Game* game,
                      float mass, 
@@ -37,3 +38,11 @@ float RigidBody::getMass() const {
 float RigidBody::getRadius() const {
     return std::sqrt(this->mass / M_PI);
 };
+
+bool RigidBody::inEatRange(RigidBody const other) {
+    sf::Vector2f thisPos = this->getPosition();
+    sf::Vector2f otherPos = other.getPosition();
+    float distance = Utils::Vectors::distance(thisPos, otherPos);
+
+    return distance <= this->getRadius();
+}

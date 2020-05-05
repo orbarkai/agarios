@@ -22,6 +22,14 @@ void Blob::update(sf::Vector2f inputVelocity) {
 
     // Position
     this->setPosition(this->getPosition() + this->velocity);
+
+    // Check food
+    std::vector<Food*> foods = this->game->getFoods();
+    for (int i = 0; i < foods.size(); i++) {
+        if (this->inEatRange(*foods[i])) {
+            this->addMass(foods[i]->eat());
+        }
+    }
 }
 
 float Blob::getSpeed() const {

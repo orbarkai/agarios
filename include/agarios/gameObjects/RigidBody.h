@@ -21,6 +21,8 @@ class RigidBody : public sf::CircleShape, public GameObject
         void updateOrigin();
         float getMass() const;
         float getRadius() const;
+
+        bool inEatRange(RigidBody const other);
 };
 
 #endif

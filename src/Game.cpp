@@ -5,22 +5,31 @@
 
 Game::Game(GameConfig gameConfig)
     : gameConfig(gameConfig),
-      players({}) {
+      players({}),
+      foods({}) {
 
-        Console::startSection(Console::paint("magenta", "Game Config"));
-        Console::log("Window Width",      "green") << gameConfig.WINDOW_WIDTH       << "px";
-        Console::log("Window Height",     "green") << gameConfig.WINDOW_HEIGHT      << "px";
-        Console::log("Camera Zoom",       "green") << gameConfig.CAMERA_ZOOM        << "x";
-        Console::endSection();
-        Console::log("Blob Initial Mass", "green") << gameConfig.BLOB_INITIAL_MASS;
-        Console::log("Blob Shrink",       "green") << gameConfig.BLOB_SHRINK_FACTOR << "x";
-        Console::log("Blob Speed",        "green") << gameConfig.BLOB_SPEED_FACTOR << "x";
-        Console::endSection();
+    // Log settings
+    Console::startSection(Console::paint("magenta", "Game Config"));
+    Console::log("Window Width",      "green") << gameConfig.WINDOW_WIDTH       << "px";
+    Console::log("Window Height",     "green") << gameConfig.WINDOW_HEIGHT      << "px";
+    Console::log("Camera Zoom",       "green") << gameConfig.CAMERA_ZOOM        << "x";
+    Console::endSection();
+    Console::log("Blob Initial Mass", "green") << gameConfig.BLOB_INITIAL_MASS;
+    Console::log("Blob Shrink",       "green") << gameConfig.BLOB_SHRINK_FACTOR << "x";
+    Console::log("Blob Speed",        "green") << gameConfig.BLOB_SPEED_FACTOR << "x";
+    Console::endSection();
 
-      }
+    // Generate foods
+    for (int i = 0 ; i < 100; i++) {
+        Food* food = new Food(this, sf::Vector2f(Utils::Math::randomFloat(0, 200), Utils::Math::randomFloat(0, 200)), Utils::Colors::randomColor());
+        this->foods.push_back(food);
+    }
+
+}
 
 void Game::update(PlayersInput playersInput)
 {
+    // Update players
     PlayersInput::iterator inputI = playersInput.begin();
 
     while (inputI != playersInput.end())
@@ -38,8 +47,15 @@ void Game::update(PlayersInput playersInput)
 
 void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+    // Draw grid
     this->drawGrid(target, states);
+
+    // Draw foods 
+    for(int i = 0; i != this->foods.size(); i++) {
+        target.draw(*this->foods[i], states);
+    }
     
+    // Draw players
     Players::const_iterator it = this->players.begin();
     while (it != this->players.cend())
     {
@@ -79,9 +95,22 @@ void Game::drawGrid(sf::RenderTarget& target, sf::RenderStates states) const {
     }
 }
 
-Player *Game::join()
+Player* Game::join()
 {
     Player *player = new Player(this, {100, 100}, sf::Color::Cyan);
     this->players.insert({player->UUID, *player});
     return player;
+}
+
+void Game::removeFood(Food* food) {
+    if (Utils::Arrays::includes<Food*>(this->foods, food)) {
+        this->foods = Utils::Arrays::filter<Food*>(this->foods, [food](Food* Ifood) {
+            return Ifood != food;
+        });
+        delete food;
+    }
+}
+
+std::vector<Food*> Game::getFoods() const {
+    return this->foods;
 }

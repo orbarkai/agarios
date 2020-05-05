@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "agarios/Player.h"
 #include "agarios/GameConfig.h"
+#include "agarios/gameObjects/Food.h"
 
 class Window;
 
@@ -18,6 +19,7 @@ class Game : public sf::Drawable
 
     private:
         Players players;
+        std::vector<Food*> foods;
 
     public:
         Game(GameConfig gameConfig);
@@ -27,6 +29,9 @@ class Game : public sf::Drawable
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         Player* join();
+        void removeFood(Food* food);
+
+        std::vector<Food*> getFoods() const;
 
     private:
         void drawGrid(sf::RenderTarget& target, sf::RenderStates states) const;

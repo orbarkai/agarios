@@ -4,6 +4,7 @@
 #include <vector>
 #include <functional>
 #include "SFML/System.hpp"
+#include "SFML/Graphics.hpp"
 
 #define NBYTES 16
 
@@ -56,6 +57,17 @@ namespace Utils
         void pointTo(sf::Vector2f& v1, sf::Vector2f& v2);
 
     } // namespace Vectors
+
+    namespace Math
+    {
+        float randomFloat(float const min, float const max);
+    } // namespace Math
+
+    namespace Colors
+    {
+        sf::Color hsv(int hue, float sat, float val);
+        sf::Color randomColor();
+    } // namespace Math
 
     std::string UUID();
 

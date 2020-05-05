@@ -23,6 +23,8 @@ struct GameConfig
     float BLOB_INITIAL_MASS;
     float BLOB_SHRINK_FACTOR;
 
+    float FOOD_MASS;
+
     GameConfig() 
     : GAME_MODE(GameMode::PRODUCTION)
     , WINDOW_WIDTH(1280)
@@ -33,7 +35,8 @@ struct GameConfig
     , BLOB_SPEED_MIN(0.2)
     , BLOB_SPEED_FACTOR(0.1)
     , BLOB_SHRINK_FACTOR(0.0005)
-    , VIRUS_COLOR(sf::Color::Green) { }
+    , VIRUS_COLOR(sf::Color::Green)
+    , FOOD_MASS(0.5) { }
 };
 
 #endif
