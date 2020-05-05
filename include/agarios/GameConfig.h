@@ -18,8 +18,9 @@ struct GameConfig
 
     sf::Color VIRUS_COLOR;
 
-    float BLOB_INITIAL_MASS;
     float BLOB_SPEED_FACTOR;
+    float BLOB_SPEED_MIN;
+    float BLOB_INITIAL_MASS;
     float BLOB_SHRINK_FACTOR;
 
     GameConfig() 
@@ -29,8 +30,9 @@ struct GameConfig
     , CAMERA_ZOOM(4)
     , GRID_MARGIN(1.5)
     , BLOB_INITIAL_MASS(20)
+    , BLOB_SPEED_MIN(0.2)
+    , BLOB_SPEED_FACTOR(0.1)
     , BLOB_SHRINK_FACTOR(0.0005)
-    , BLOB_SPEED_FACTOR(1.7)
     , VIRUS_COLOR(sf::Color::Green) { }
 };
 

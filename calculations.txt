@@ -1,0 +1,2 @@
+Speed:
+(1 / ((2 / min_speed) + (speed_factor * mass))) + (min_speed / 2)
