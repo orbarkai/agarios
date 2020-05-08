@@ -24,7 +24,7 @@ void Game::init() {
     Console::endSection();
 
     // Generate foods
-    for (int i = 0 ; i < 1000; i++) {
+    for (int i = 0 ; i < this->gameConfig.FOOD_PER_PIXEL * (gameConfig.BOUNDS.x * gameConfig.BOUNDS.y); i++) {
         Food* food = new Food(this, this->randomPosition(), Utils::Colors::randomColor());
         this->foods.push_back(food);
     }
@@ -111,10 +111,15 @@ Player* Game::join()
 
 void Game::removeFood(Food* food) {
     if (Utils::Arrays::includes<Food*>(this->foods, food)) {
+        // Delete the food
         this->foods = Utils::Arrays::filter<Food*>(this->foods, [food](Food* Ifood) {
             return Ifood != food;
         });
         delete food;
+
+        // Generate a new food
+        Food* newFood = new Food(this, this->randomPosition(), Utils::Colors::randomColor());
+        this->foods.push_back(newFood);
     }
 }
 

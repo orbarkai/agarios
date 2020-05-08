@@ -26,6 +26,7 @@ struct GameConfig
     float BLOB_SHRINK_FACTOR;
 
     float FOOD_MASS;
+    float FOOD_PER_PIXEL;
 
     GameConfig() 
     : GAME_MODE(GameMode::PRODUCTION)
@@ -39,7 +40,8 @@ struct GameConfig
     , BLOB_SPEED_FACTOR(0.1)
     , BLOB_SHRINK_FACTOR(0.0005)
     , VIRUS_COLOR(sf::Color::Green)
-    , FOOD_MASS(0.5) { }
+    , FOOD_MASS(0.5)
+    , FOOD_PER_PIXEL(0.05) { }
 };
 
 #endif
