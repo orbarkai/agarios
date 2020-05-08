@@ -25,7 +25,7 @@ void Game::init() {
 
     // Generate foods
     for (int i = 0 ; i < 1000; i++) {
-        Food* food = new Food(this, sf::Vector2f(Utils::Math::randomFloat(0, 200), Utils::Math::randomFloat(0, 200)), Utils::Colors::randomColor());
+        Food* food = new Food(this, this->randomPosition(), Utils::Colors::randomColor());
         this->foods.push_back(food);
     }
 }
@@ -69,33 +69,37 @@ void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const
 }
 
 void Game::drawGrid(sf::RenderTarget& target, sf::RenderStates states) const {
-    sf::Vector2f topLeft = target.mapPixelToCoords({0, 0});
-    sf::Vector2f bottomRight = target.mapPixelToCoords({(int)target.getSize().x, (int)target.getSize().y});
+    float margin = (float)(1 + ((int)target.getView().getSize().x / 100)) * this->gameConfig.GRID_MARGIN;
 
-    for (float i = 0; i < bottomRight.x; i += this->gameConfig.GRID_MARGIN) {
-        if (i >= topLeft.x) {
-            sf::Vertex lineY[2];
-            lineY[0].position = sf::Vector2f(i, topLeft.y);
-            lineY[0].color  = sf::Color::White;
-            lineY[1].position = sf::Vector2f(i, bottomRight.y);
-            lineY[1].color = sf::Color::White;
+    // Vertical lines
+    for (float i = 0; i <= this->gameConfig.BOUNDS.x; i += margin) {
+        sf::Vertex lineY[2];
+        lineY[0].position = sf::Vector2f(i, 0);
+        lineY[0].color  = sf::Color::White;
+        lineY[1].position = sf::Vector2f(i, this->gameConfig.BOUNDS.y);
+        lineY[1].color = sf::Color::White;
 
-            target.draw(lineY, 2, sf::Lines, states);
-        }
+        target.draw(lineY, 2, sf::Lines, states);
     }
 
 
-    for (float i = 0; i < bottomRight.y; i += this->gameConfig.GRID_MARGIN) {
-        if (i >= topLeft.y) {
-            sf::Vertex lineX[2];
-            lineX[0].position = sf::Vector2f(topLeft.x, i);
-            lineX[0].color  = sf::Color::White;
-            lineX[1].position = sf::Vector2f(bottomRight.x, i);
-            lineX[1].color = sf::Color::White;
+    // Hoeizontal lines
+    for (float i = 0; i <= this->gameConfig.BOUNDS.y; i += margin) {
+        sf::Vertex lineX[2];
+        lineX[0].position = sf::Vector2f(0, i);
+        lineX[0].color  = sf::Color::White;
+        lineX[1].position = sf::Vector2f(this->gameConfig.BOUNDS.x, i);
+        lineX[1].color = sf::Color::White;
 
-            target.draw(lineX, 2, sf::Lines, states);
-        }
+        target.draw(lineX, 2, sf::Lines, states);
     }
+
+    // Bounding
+    sf::RectangleShape boundingShape = sf::RectangleShape(this->gameConfig.BOUNDS);
+    boundingShape.setFillColor(sf::Color::Transparent);
+    boundingShape.setOutlineColor(sf::Color::White);
+    boundingShape.setOutlineThickness(5);
+    target.draw(boundingShape, states);
 }
 
 Player* Game::join()
@@ -116,4 +120,11 @@ void Game::removeFood(Food* food) {
 
 std::vector<Food*> Game::getFoods() const {
     return this->foods;
+}
+
+sf::Vector2f Game::randomPosition() const {
+    sf::Vector2f pos = Utils::Vectors::randomVector();
+    sf::Vector2f bounds = this->gameConfig.BOUNDS;
+    Utils::Vectors::mult(pos, bounds);
+    return pos;
 }

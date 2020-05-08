@@ -34,6 +34,8 @@ class Game : public sf::Drawable
 
         std::vector<Food*> getFoods() const;
 
+        sf::Vector2f randomPosition() const;
+
     private:
         void drawGrid(sf::RenderTarget& target, sf::RenderStates states) const;
 

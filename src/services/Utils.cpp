@@ -67,10 +67,20 @@ float Utils::Vectors::cross(sf::Vector2f& v1, sf::Vector2f& v2)
     return (v1.x * v2.y) - (v1.y * v2.x);
 }
 
+void Utils::Vectors::mult(sf::Vector2f& v1, sf::Vector2f& v2)
+{
+    v1.x *= v2.x;
+    v1.y *= v2.y;
+}
+
 float Utils::Vectors::distance(sf::Vector2f& v1, sf::Vector2f& v2)
 {
     sf::Vector2f distanceVector = v2 - v1;
     return Utils::Vectors::length(distanceVector);
+}
+
+sf::Vector2f Utils::Vectors::randomVector() {
+    return sf::Vector2f(Utils::Math::randomFloat(0, 1), Utils::Math::randomFloat(0, 1));
 }
 
 void Utils::Vectors::pointTo(sf::Vector2f& v1, sf::Vector2f& v2)

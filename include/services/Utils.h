@@ -53,8 +53,11 @@ namespace Utils
         
         float dot(sf::Vector2f& v1, sf::Vector2f& v2);
         float cross(sf::Vector2f& v1, sf::Vector2f& v2);
+        void mult(sf::Vector2f& v1, sf::Vector2f& v2);
         float distance(sf::Vector2f& v1, sf::Vector2f& v2);
         void pointTo(sf::Vector2f& v1, sf::Vector2f& v2);
+
+        sf::Vector2f randomVector();
 
     } // namespace Vectors
 

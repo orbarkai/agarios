@@ -20,6 +20,9 @@ class Blob : public RigidBody
         float getSpeed() const;
         float getShrink() const;
 
+    private:
+        void applyBounds();
+
 };
 
 #endif
