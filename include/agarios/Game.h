@@ -9,7 +9,7 @@
 class Window;
 
 typedef std::unordered_map<std::string, sf::Vector2f> PlayersInput;
-typedef std::unordered_map<std::string, Player> Players;
+typedef std::unordered_map<std::string, Player*> Players;
 
 class Game : public sf::Drawable
 {

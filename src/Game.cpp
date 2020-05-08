@@ -2,6 +2,8 @@
 #include "services/Utils.h"
 #include "services/Console.h"
 #include "agarios/window.h"
+#include "agarios/Bot.h"
+
 
 Game::Game(GameConfig gameConfig)
     : gameConfig(gameConfig),
@@ -28,6 +30,12 @@ void Game::init() {
         Food* food = new Food(this, this->randomPosition(), Utils::Colors::randomColor());
         this->foods.push_back(food);
     }
+
+    // Add bots
+    for (int i = 0; i < 10; i++) {
+        Bot* bot = new Bot(this, this->randomPosition(), Utils::Colors::randomColor());
+        this->players.insert({bot->UUID, bot});
+    }
 }
 
 void Game::update(PlayersInput playersInput)
@@ -41,10 +49,23 @@ void Game::update(PlayersInput playersInput)
 
         if (playerI != this->players.end())
         {
-            playerI->second.update(inputI->second);
+            playerI->second->update(inputI->second);
         }
 
         inputI++;
+    }
+
+    // update bots 
+    Players::iterator playerI = this->players.begin();
+    while (playerI != this->players.end()) {
+        Player* player = playerI->second;
+        Bot* bot = dynamic_cast<Bot*>(player);
+        
+        if (bot) {
+            bot->update(bot->getNextMove().inputVelocity);
+        }
+
+        playerI++;
     }
 }
 
@@ -62,7 +83,7 @@ void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const
     Players::const_iterator it = this->players.begin();
     while (it != this->players.cend())
     {
-        target.draw(it->second, states);
+        target.draw(*it->second, states);
 
         it++;
     }
@@ -105,7 +126,8 @@ void Game::drawGrid(sf::RenderTarget& target, sf::RenderStates states) const {
 Player* Game::join()
 {
     Player *player = new Player(this, {100, 100}, sf::Color::Cyan);
-    this->players.insert({player->UUID, *player});
+    this->players.insert({player->UUID, player});
+    Console::log(player->UUID) << "joined";
     return player;
 }
 

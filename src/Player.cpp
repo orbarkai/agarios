@@ -11,6 +11,8 @@ Player::Player(Game* game,
                : GameObject(game),
                  UUID(Utils::UUID()),
                  blobs({std::make_shared<Blob>(game, position, color)}) { }
+
+Player::~Player() { }
                  
 sf::Vector2f Player::getPosition() const {
     if (this->blobs.size() == 0) return {0, 0};

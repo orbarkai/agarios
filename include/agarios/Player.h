@@ -24,6 +24,8 @@ class Player : public sf::Drawable, public GameObject
                sf::Vector2f position, 
                sf::Color color);
 
+        virtual ~Player();
+
     public:
         void update(sf::Vector2f inputVelocity);
         sf::Vector2f getPosition() const;

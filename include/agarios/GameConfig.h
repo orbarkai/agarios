@@ -41,7 +41,7 @@ struct GameConfig
     , BLOB_SHRINK_FACTOR(0.0005)
     , VIRUS_COLOR(sf::Color::Green)
     , FOOD_MASS(0.5)
-    , FOOD_PER_PIXEL(0.05) { }
+    , FOOD_PER_PIXEL(0.005) { }
 };
 
 #endif
