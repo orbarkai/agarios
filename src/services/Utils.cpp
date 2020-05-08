@@ -152,3 +152,14 @@ std::string Utils::UUID() {
 
     return uuid;
 }  
+
+bool Utils::Collisions::circleRectangle(sf::CircleShape circle, sf::Rect<float> rect) {
+    sf::Vector2f circlePos = circle.getPosition();
+
+    float closestX = std::clamp<float>(circlePos.x, rect.left, rect.left + rect.width);
+    float closestY = std::clamp<float>(circlePos.y, rect.top,  rect.top  + rect.height);
+
+    sf::Vector2f closestPos = {closestX, closestY};
+
+    return Utils::Vectors::distance(circlePos, closestPos) < circle.getRadius();
+}

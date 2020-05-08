@@ -72,6 +72,11 @@ namespace Utils
         sf::Color randomColor();
     } // namespace Math
 
+    namespace Collisions
+    {
+        bool circleRectangle(sf::CircleShape circle, sf::Rect<float> rect);
+    } // namespace Math
+
     std::string UUID();
 
 } // namespace Utils

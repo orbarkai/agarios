@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "agarios/Player.h"
 #include "agarios/GameConfig.h"
+#include "agarios/QuadTree.h"
 #include "agarios/gameObjects/Food.h"
 
 class Window;
@@ -19,7 +20,7 @@ class Game : public sf::Drawable
 
     private:
         Players players;
-        std::vector<Food*> foods;
+        QuadTree foods;
 
     public:
         Game(GameConfig gameConfig);
@@ -32,7 +33,7 @@ class Game : public sf::Drawable
         Player* join();
         void removeFood(Food* food);
 
-        std::vector<Food*> getFoods() const;
+        QuadTree getFoods() const;
 
         sf::Vector2f randomPosition() const;
 

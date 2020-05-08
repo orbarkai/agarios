@@ -8,7 +8,7 @@
 Game::Game(GameConfig gameConfig)
     : gameConfig(gameConfig),
       players({}),
-      foods({}) {
+      foods(QuadTree(sf::Rect({0, 0}, gameConfig.BOUNDS), 5)) {
 
     this->init();
 }
@@ -28,7 +28,7 @@ void Game::init() {
     // Generate foods
     for (int i = 0 ; i < this->gameConfig.FOOD_PER_PIXEL * (gameConfig.BOUNDS.x * gameConfig.BOUNDS.y); i++) {
         Food* food = new Food(this, this->randomPosition(), Utils::Colors::randomColor());
-        this->foods.push_back(food);
+        this->foods.insert(food);
     }
 
     // Add bots
@@ -75,9 +75,12 @@ void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const
     this->drawGrid(target, states);
 
     // Draw foods 
-    for(int i = 0; i != this->foods.size(); i++) {
-        target.draw(*this->foods[i], states);
-    }
+    this->foods.forEach([&target, states](sf::Transformable* object) {
+        Food* food = dynamic_cast<Food*>(object);
+        if (food) {
+            target.draw(*food, states);
+        }
+    });
     
     // Draw players
     Players::const_iterator it = this->players.begin();
@@ -132,20 +135,16 @@ Player* Game::join()
 }
 
 void Game::removeFood(Food* food) {
-    if (Utils::Arrays::includes<Food*>(this->foods, food)) {
-        // Delete the food
-        this->foods = Utils::Arrays::filter<Food*>(this->foods, [food](Food* Ifood) {
-            return Ifood != food;
-        });
+    if (this->foods.remove(food)) {
         delete food;
 
-        // Generate a new food
+         // Generate a new food
         Food* newFood = new Food(this, this->randomPosition(), Utils::Colors::randomColor());
-        this->foods.push_back(newFood);
+        this->foods.insert(newFood);
     }
 }
 
-std::vector<Food*> Game::getFoods() const {
+QuadTree Game::getFoods() const {
     return this->foods;
 }
 

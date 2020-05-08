@@ -27,10 +27,11 @@ void Blob::update(sf::Vector2f inputVelocity) {
     this->applyBounds();
 
     // Check food
-    std::vector<Food*> foods = this->game->getFoods();
+    std::vector<sf::Transformable*> foods = this->game->getFoods().getObjectsIntersects(*this);
     for (int i = 0; i < foods.size(); i++) {
-        if (this->inEatRange(*foods[i])) {
-            this->addMass(foods[i]->eat());
+        Food* food = static_cast<Food*>(foods[i]);
+        if (food && this->inEatRange(*food)) {
+            this->addMass(food->eat());
         }
     }
 }

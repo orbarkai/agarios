@@ -11,24 +11,28 @@ Bot::Bot(Game* game,
 Bot::Move Bot::getNextMove() {
     // For now a simple bot that goes to the nearest food
     // In the future the bot will use a neural network
-    std::vector<Food*> foods = this->game->getFoods();
+    QuadTree allFoods = this->game->getFoods();
+    sf::CircleShape searchRange = sf::CircleShape(std::max<float>(this->getBBox().width, this->getBBox().height));
+    searchRange.setPosition(this->getPosition());
 
-    if (foods.size() == 0) {
+    std::vector<sf::Transformable*> objects = allFoods.getObjectsIntersects(searchRange);
+
+    if (objects.size() == 0) {
         return Bot::Move();
     }
 
-    Food* closestFood = foods[0];
+    sf::Transformable* closestObject = objects[0];
     sf::Vector2f thisPos = this->getPosition();
 
-    for (int i = 1; i < foods.size(); i++) {
-        sf::Vector2f foodPos = foods[i]->getPosition();
-        sf::Vector2f closestFoodPos = closestFood->getPosition();
+    for (int i = 1; i < objects.size(); i++) {
+        sf::Vector2f foodPos = objects[i]->getPosition();
+        sf::Vector2f closestFoodPos = closestObject->getPosition();
         if (Utils::Vectors::distance(thisPos, foodPos) < Utils::Vectors::distance(thisPos, closestFoodPos)) {
-            closestFood = foods[i];
+            closestObject = objects[i];
         }
     }
 
-    sf::Vector2f inputVelocity = closestFood->getPosition() - thisPos;
+    sf::Vector2f inputVelocity = closestObject->getPosition() - thisPos;
     Utils::Vectors::normalize(inputVelocity);
     
     Bot::Move nextMove = {};
