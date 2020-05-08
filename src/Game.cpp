@@ -8,7 +8,11 @@ Game::Game(GameConfig gameConfig)
       players({}),
       foods({}) {
 
-    // Log settings
+    this->init();
+}
+
+void Game::init() {
+// Log settings
     Console::startSection(Console::paint("magenta", "Game Config"));
     Console::log("Window Width",      "green") << gameConfig.WINDOW_WIDTH       << "px";
     Console::log("Window Height",     "green") << gameConfig.WINDOW_HEIGHT      << "px";
@@ -20,11 +24,10 @@ Game::Game(GameConfig gameConfig)
     Console::endSection();
 
     // Generate foods
-    for (int i = 0 ; i < 100; i++) {
+    for (int i = 0 ; i < 1000; i++) {
         Food* food = new Food(this, sf::Vector2f(Utils::Math::randomFloat(0, 200), Utils::Math::randomFloat(0, 200)), Utils::Colors::randomColor());
         this->foods.push_back(food);
     }
-
 }
 
 void Game::update(PlayersInput playersInput)
