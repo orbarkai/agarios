@@ -28,7 +28,7 @@ Player* Camera::getTarget() const {
 }
 
 void Camera::setZoom(float const zoom) {
-    this->zoom = zoom;
+    this->zoom = std::max<float>(zoom, 0.1);
 }
 
 float Camera::getZoom() const {
