@@ -34,7 +34,7 @@ struct GameConfig
     , WINDOW_WIDTH(1280)
     , WINDOW_HEIGHT(720)
     , CAMERA_ZOOM(4)
-    , GRID_MARGIN(1.5)
+    , GRID_MARGIN(2.5)
     , BLOB_INITIAL_MASS(20)
     , BLOB_SPEED_MIN(0.2)
     , BLOB_SPEED_FACTOR(0.1)
