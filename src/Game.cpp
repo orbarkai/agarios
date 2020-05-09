@@ -93,29 +93,33 @@ void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const
 }
 
 void Game::drawGrid(sf::RenderTarget& target, sf::RenderStates states) const {
-    float margin = (float)(1 + ((int)target.getView().getSize().x / 100)) * this->gameConfig.GRID_MARGIN;
+    if (this->gameConfig.GRID_MODE == GameConfig::GridMode::SYMETRIC) {
+        float margin = (float)(1 + ((int)target.getView().getSize().x / 100)) * this->gameConfig.GRID_MARGIN;
 
-    // Vertical lines
-    for (float i = 0; i <= this->gameConfig.BOUNDS.x; i += margin) {
-        sf::Vertex lineY[2];
-        lineY[0].position = sf::Vector2f(i, 0);
-        lineY[0].color  = sf::Color::White;
-        lineY[1].position = sf::Vector2f(i, this->gameConfig.BOUNDS.y);
-        lineY[1].color = sf::Color::White;
+        // Vertical lines
+        for (float i = 0; i <= this->gameConfig.BOUNDS.x; i += margin) {
+            sf::Vertex lineY[2];
+            lineY[0].position = sf::Vector2f(i, 0);
+            lineY[0].color  = sf::Color::White;
+            lineY[1].position = sf::Vector2f(i, this->gameConfig.BOUNDS.y);
+            lineY[1].color = sf::Color::White;
 
-        target.draw(lineY, 2, sf::Lines, states);
-    }
+            target.draw(lineY, 2, sf::Lines, states);
+        }
 
 
-    // Hoeizontal lines
-    for (float i = 0; i <= this->gameConfig.BOUNDS.y; i += margin) {
-        sf::Vertex lineX[2];
-        lineX[0].position = sf::Vector2f(0, i);
-        lineX[0].color  = sf::Color::White;
-        lineX[1].position = sf::Vector2f(this->gameConfig.BOUNDS.x, i);
-        lineX[1].color = sf::Color::White;
+        // Hoeizontal lines
+        for (float i = 0; i <= this->gameConfig.BOUNDS.y; i += margin) {
+            sf::Vertex lineX[2];
+            lineX[0].position = sf::Vector2f(0, i);
+            lineX[0].color  = sf::Color::White;
+            lineX[1].position = sf::Vector2f(this->gameConfig.BOUNDS.x, i);
+            lineX[1].color = sf::Color::White;
 
-        target.draw(lineX, 2, sf::Lines, states);
+            target.draw(lineX, 2, sf::Lines, states);
+        }
+    } else if (this->gameConfig.GRID_MODE == GameConfig::GridMode::QUADTREE) {
+        this->foods.draw(target, states);
     }
 
     // Bounding

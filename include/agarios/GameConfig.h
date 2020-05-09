@@ -7,8 +7,10 @@ struct GameConfig
 {
 
     enum class GameMode {DEV, PRODUCTION, GOD};
+    enum class GridMode {SYMETRIC, QUADTREE};
 
     GameMode GAME_MODE;
+    GridMode GRID_MODE;
 
     unsigned int WINDOW_WIDTH;
     unsigned int WINDOW_HEIGHT;
@@ -30,6 +32,7 @@ struct GameConfig
 
     GameConfig() 
     : GAME_MODE(GameMode::PRODUCTION)
+    , GRID_MODE(GridMode::QUADTREE)
     , BOUNDS({200, 200})
     , WINDOW_WIDTH(1280)
     , WINDOW_HEIGHT(720)

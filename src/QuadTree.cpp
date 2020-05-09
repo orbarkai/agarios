@@ -165,3 +165,18 @@ void QuadTree::forEach(std::function<void(sf::Transformable* object)> what) cons
     }
 }
 
+void QuadTree::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    if (this->isLeaf()) {
+        sf::RectangleShape rectShape = sf::RectangleShape({this->boundary.width, this->boundary.height});
+        rectShape.setPosition({this->boundary.left, this->boundary.top});
+        rectShape.setFillColor(sf::Color::Transparent);
+        rectShape.setOutlineColor(sf::Color::Red);
+        rectShape.setOutlineThickness(0.05 * (float)(1 + ((int)target.getView().getSize().x / 70)));
+        target.draw(rectShape, states);
+    } else {
+        this->topRight->draw(target, states);
+        this->bottomRight->draw(target, states);
+        this->bottomLeft->draw(target, states);
+        this->topLeft->draw(target, states);
+    }
+}

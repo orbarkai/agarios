@@ -35,6 +35,8 @@ class QuadTree
         std::vector<sf::Transformable*> getObjectsIntersects(sf::CircleShape const body) const;
         void forEach(std::function<void(sf::Transformable* object)> what) const;
 
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 };
 
 #endif
