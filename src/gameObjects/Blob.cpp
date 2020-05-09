@@ -47,15 +47,16 @@ float Blob::getShrink() const {
 
 void Blob::applyBounds() {
     sf::FloatRect thisBounds = this->getGlobalBounds();
-    if (thisBounds.left <= 0) {
-        this->setPosition(this->getRadius(), this->getPosition().y);
-    } else if (thisBounds.left + thisBounds.width >= this->game->gameConfig.BOUNDS.x) {
-        this->setPosition(this->game->gameConfig.BOUNDS.x - this->getRadius(), this->getPosition().y);
+    sf::FloatRect gameBounds = this->game->gameConfig.BOUNDS;
+    if (thisBounds.left <= gameBounds.left) {
+        this->setPosition(gameBounds.left + this->getRadius(), this->getPosition().y);
+    } else if (thisBounds.left + thisBounds.width >= gameBounds.left + gameBounds.width) {
+        this->setPosition(gameBounds.left + gameBounds.width - this->getRadius(), this->getPosition().y);
     }
     
-    if (thisBounds.top <= 0) {
-        this->setPosition(this->getPosition().x, this->getRadius());
-    } else if (thisBounds.top + thisBounds.height >= this->game->gameConfig.BOUNDS.y) {
-        this->setPosition(this->getPosition().x, this->game->gameConfig.BOUNDS.y - this->getRadius());
+    if (thisBounds.top <= gameBounds.top) {
+        this->setPosition(this->getPosition().x, gameBounds.top + this->getRadius());
+    } else if (thisBounds.top + thisBounds.height >= gameBounds.top + gameBounds.height) {
+        this->setPosition(this->getPosition().x, gameBounds.top + gameBounds.height - this->getRadius());
     }
 }

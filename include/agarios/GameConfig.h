@@ -15,7 +15,7 @@ struct GameConfig
     unsigned int WINDOW_WIDTH;
     unsigned int WINDOW_HEIGHT;
 
-    sf::Vector2f BOUNDS;
+    sf::Rect<float> BOUNDS;
 
     float CAMERA_ZOOM;
     float GRID_MARGIN;
@@ -33,7 +33,7 @@ struct GameConfig
     GameConfig() 
     : GAME_MODE(GameMode::PRODUCTION)
     , GRID_MODE(GridMode::QUADTREE)
-    , BOUNDS({200, 200})
+    , BOUNDS(sf::Rect<float>({0, 0}, {200, 200}))
     , WINDOW_WIDTH(1280)
     , WINDOW_HEIGHT(720)
     , CAMERA_ZOOM(4)

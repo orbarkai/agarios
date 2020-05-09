@@ -8,7 +8,7 @@
 Game::Game(GameConfig gameConfig)
     : gameConfig(gameConfig),
       players({}),
-      foods(QuadTree(sf::Rect({0, 0}, gameConfig.BOUNDS), 8)) {
+      foods(QuadTree(gameConfig.BOUNDS, 8)) {
 
     this->init();
 }
@@ -26,7 +26,7 @@ void Game::init() {
     Console::endSection();
 
     // Generate foods
-    for (int i = 0 ; i < this->gameConfig.FOOD_PER_PIXEL * (gameConfig.BOUNDS.x * gameConfig.BOUNDS.y); i++) {
+    for (int i = 0 ; i < this->gameConfig.FOOD_PER_PIXEL * (gameConfig.BOUNDS.width * gameConfig.BOUNDS.height); i++) {
         Food* food = new Food(this, this->randomPosition(), Utils::Colors::randomColor());
         this->foods.insert(food);
     }
@@ -97,11 +97,11 @@ void Game::drawGrid(sf::RenderTarget& target, sf::RenderStates states) const {
         float margin = (float)(1 + ((int)target.getView().getSize().x / 100)) * this->gameConfig.GRID_MARGIN;
 
         // Vertical lines
-        for (float i = 0; i <= this->gameConfig.BOUNDS.x; i += margin) {
+        for (float i = this->gameConfig.BOUNDS.left; i <= this->gameConfig.BOUNDS.left + this->gameConfig.BOUNDS.width; i += margin) {
             sf::Vertex lineY[2];
-            lineY[0].position = sf::Vector2f(i, 0);
+            lineY[0].position = sf::Vector2f(i, this->gameConfig.BOUNDS.top);
             lineY[0].color  = sf::Color::White;
-            lineY[1].position = sf::Vector2f(i, this->gameConfig.BOUNDS.y);
+            lineY[1].position = sf::Vector2f(i, this->gameConfig.BOUNDS.top + this->gameConfig.BOUNDS.height);
             lineY[1].color = sf::Color::White;
 
             target.draw(lineY, 2, sf::Lines, states);
@@ -109,11 +109,11 @@ void Game::drawGrid(sf::RenderTarget& target, sf::RenderStates states) const {
 
 
         // Hoeizontal lines
-        for (float i = 0; i <= this->gameConfig.BOUNDS.y; i += margin) {
+        for (float i = this->gameConfig.BOUNDS.top; i <= this->gameConfig.BOUNDS.top + this->gameConfig.BOUNDS.height; i += margin) {
             sf::Vertex lineX[2];
-            lineX[0].position = sf::Vector2f(0, i);
+            lineX[0].position = sf::Vector2f(this->gameConfig.BOUNDS.left, i);
             lineX[0].color  = sf::Color::White;
-            lineX[1].position = sf::Vector2f(this->gameConfig.BOUNDS.x, i);
+            lineX[1].position = sf::Vector2f(this->gameConfig.BOUNDS.left + this->gameConfig.BOUNDS.width, i);
             lineX[1].color = sf::Color::White;
 
             target.draw(lineX, 2, sf::Lines, states);
@@ -123,7 +123,8 @@ void Game::drawGrid(sf::RenderTarget& target, sf::RenderStates states) const {
     }
 
     // Bounding
-    sf::RectangleShape boundingShape = sf::RectangleShape(this->gameConfig.BOUNDS);
+    sf::RectangleShape boundingShape = sf::RectangleShape({this->gameConfig.BOUNDS.width, this->gameConfig.BOUNDS.height});
+    boundingShape.setPosition(this->gameConfig.BOUNDS.left, this->gameConfig.BOUNDS.top);
     boundingShape.setFillColor(sf::Color::Transparent);
     boundingShape.setOutlineColor(sf::Color::White);
     boundingShape.setOutlineThickness(5);
@@ -154,7 +155,8 @@ QuadTree Game::getFoods() const {
 
 sf::Vector2f Game::randomPosition() const {
     sf::Vector2f pos = Utils::Vectors::randomVector();
-    sf::Vector2f bounds = this->gameConfig.BOUNDS;
-    Utils::Vectors::mult(pos, bounds);
+    sf::Vector2f boundsSize = {this->gameConfig.BOUNDS.width, this->gameConfig.BOUNDS.height};
+    Utils::Vectors::mult(pos, boundsSize);
+    pos += {this->gameConfig.BOUNDS.left, this->gameConfig.BOUNDS.top};
     return pos;
 }
