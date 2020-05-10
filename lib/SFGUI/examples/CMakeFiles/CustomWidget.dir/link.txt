@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -Wall -Wextra -Wshadow -Wconversion -Wsign-conversion -Wunused-parameter -Wno-long-long -pedantic   -rdynamic CMakeFiles/CustomWidget.dir/CustomWidget.cpp.o  -o CustomWidget  -Wl,-rpath,/home/or/studio/c++/agarios/lib/SFGUI/lib: ../lib/libsfgui.so -lsfml-graphics -lsfml-window -lsfml-system -lGL -lSM -lICE -lX11 -lXext 
