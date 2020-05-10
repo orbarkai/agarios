@@ -14,7 +14,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include_directories(include)
 
 #However, the file(GLOB...) allows for wildcard additions:
-file(GLOB SOURCES "src/*.cpp" "src/**/*.cpp", "src/**/**/*.cpp")
+file(GLOB SOURCES "src/*.cpp" "src/**/*.cpp" "src/**/**/*.cpp")
 
 add_executable(agarios ${SOURCES})
 
@@ -29,6 +29,17 @@ if(SFML_FOUND)
   target_link_libraries(agarios ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 endif()
 
+if (POLICY CMP0074)
+  cmake_policy(SET CMP0074 NEW)
+endif()
+
+SET (SFGUI_ROOT /home/or/studio/c++/agarios/lib/SFGUI)
+find_package ( SFGUI REQUIRED )
+if(SFGUI_FOUND)
+  message("SFGUI_LIBRARY " ${SFGUI_LIBRARY})
+  include_directories( ${SFGUI_INCLUDE_DIR} )
+  target_link_libraries(agarios ${SFGUI_LIBRARY})
+endif()
 
 # Install target
 install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)

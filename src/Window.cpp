@@ -8,7 +8,10 @@ Window::Window(Game* game, Player* mainPlayer=NULL)
                                    game->gameConfig.WINDOW_HEIGHT},
                                    "Agarios")
                , GameObject(game)
-               , camera(this, NULL) {
+               , camera(this, NULL)
+               , sfgui()
+               , desktop()
+               , clock() {
 
     this->setGame(game);
     this->setMainPlayer(mainPlayer);
@@ -19,18 +22,27 @@ Window::Window(Game* game, Player* mainPlayer=NULL)
 }
 
 void Window::run() {
+    // Set framerate
     this->setFramerateLimit(60);
+
+	// reset OpenGL states. Otherwise we wouldn't see anything.
+	this->resetGLStates();
 
     while (this->isOpen())
     {
+        // Event to pull
         sf::Event event;
         while (this->pollEvent(event))
         {
+            // Handle GUI events (click, hover, drag etc...)
+            this->desktop.HandleEvent( event );
+
             // Request for closing the window
             if (event.type == sf::Event::Closed) {
                 this->close();
             }
                 
+             // Zoom
             if (event.type == sf::Event::MouseWheelMoved) {
                 if (this->game->gameConfig.GAME_MODE == GameConfig::GameMode::DEV || this->game->gameConfig.GAME_MODE == GameConfig::GameMode::GOD) {
                     float delta = event.mouseWheel.delta;
@@ -39,16 +51,25 @@ void Window::run() {
             }
         }
 
+        // Clear window
         this->clear();
 
+         // Set drawing view
         this->setView(this->camera.getView());
 
-        this->getPlayerInput();
+        // Update SFGUI with elapsed seconds since last call.
+		this->desktop.Update( this->clock.restart().asSeconds() );
 
+        // Update game
         this->game->update({{this->mainPlayer->UUID, this->getPlayerInput()}});
 
+        // Draw game
         this->draw(*this->game);
 
+        // Draw GUI
+        this->sfgui.Display( *this );
+
+        // Flip buffers
         this->display();
     }
 }

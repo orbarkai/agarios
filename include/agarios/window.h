@@ -1,7 +1,9 @@
 #ifndef WINDOW_H_
 #define WINDOW_H_
 
-#include "SFML/Graphics.hpp"
+#include <SFGUI/SFGUI.hpp>
+#include <SFGUI/Widgets.hpp>
+
 #include "agarios/Game.h"
 #include "agarios/Camera.h"
 
@@ -13,6 +15,11 @@ class Window : public sf::RenderWindow, private GameObject
     private:
         Player* mainPlayer;
         Camera camera;
+
+        sfg::SFGUI sfgui;
+        sfg::Desktop desktop;
+        
+        sf::Clock clock;
 
     public:
         Window(Game* game, Player* mainPlayer);
