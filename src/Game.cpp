@@ -8,7 +8,7 @@
 Game::Game(GameConfig gameConfig)
     : gameConfig(gameConfig),
       players({}),
-      foods(QuadTree(gameConfig.BOUNDS, 8)) {
+      foods(QuadTree(gameConfig.BOUNDS, 10)) {
 
     this->init();
 }
