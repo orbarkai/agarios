@@ -11,7 +11,8 @@ Window::Window(Game* game, Player* mainPlayer=NULL)
                , camera(this, NULL)
                , sfgui()
                , desktop()
-               , clock() {
+               , clock()
+               , fpsLabel(sfg::Label::Create("")) {
 
     this->setGame(game);
     this->setMainPlayer(mainPlayer);
@@ -19,6 +20,8 @@ Window::Window(Game* game, Player* mainPlayer=NULL)
     if (this->game && !this->mainPlayer) {
         this->setMainPlayer(this->game->join());
     }
+
+    this->desktop.Add(this->fpsLabel);
 }
 
 void Window::run() {
@@ -30,6 +33,9 @@ void Window::run() {
 
     while (this->isOpen())
     {
+        //FPS
+        float elapsedTime = this->clock.restart().asSeconds();
+        float fps = 1 / elapsedTime;
         // Event to pull
         sf::Event event;
         while (this->pollEvent(event))
@@ -58,7 +64,10 @@ void Window::run() {
         this->setView(this->camera.getView());
 
         // Update SFGUI with elapsed seconds since last call.
-		this->desktop.Update( this->clock.restart().asSeconds() );
+		this->desktop.Update(elapsedTime);
+
+        // Update fps text
+        this->fpsLabel->SetText("fps: " + std::to_string(fps));
 
         // Update game
         this->game->update({{this->mainPlayer->UUID, this->getPlayerInput()}});

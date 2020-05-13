@@ -18,8 +18,9 @@ class Window : public sf::RenderWindow, private GameObject
 
         sfg::SFGUI sfgui;
         sfg::Desktop desktop;
-        
         sf::Clock clock;
+
+        sfg::Label::Ptr fpsLabel;
 
     public:
         Window(Game* game, Player* mainPlayer);
