@@ -15,6 +15,9 @@ typedef std::unordered_map<std::string, Player*> Players;
 class Game : public sf::Drawable
 {
 
+    private:
+        static std::vector<std::string> names;
+
     public:
         GameConfig gameConfig;
 
@@ -36,6 +39,7 @@ class Game : public sf::Drawable
         QuadTree getFoods() const;
 
         sf::Vector2f randomPosition() const;
+        std::string randomName() const;
 
     private:
         void drawGrid(sf::RenderTarget& target, sf::RenderStates states) const;

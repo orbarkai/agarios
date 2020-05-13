@@ -18,6 +18,7 @@ class Player : public sf::Drawable, public GameObject
 
     private:
         std::vector<std::shared_ptr<Blob>> blobs;
+        std::string name;
 
     public:
         Player(Game* game, 
@@ -31,6 +32,9 @@ class Player : public sf::Drawable, public GameObject
         sf::Vector2f getPosition() const;
         sf::FloatRect getBBox() const;
         sf::RectangleShape getBBoxShape() const;
+
+        std::string getName() const;
+        std::string getLoggerName() const;
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

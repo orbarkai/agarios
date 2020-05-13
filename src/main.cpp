@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "services/Console.h"
 #include "services/Utils.h"
+#include "services/FS.h"
 #include "agarios/Game.h"
 #include "agarios/window.h"
 

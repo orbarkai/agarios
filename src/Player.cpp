@@ -3,6 +3,7 @@
 #include "services/Utils.h"
 #include "services/Console.h"
 #include "agarios/GameObject.h"
+#include "agarios/Game.h"
 #include "agarios/gameObjects/Blob.h"
 
 Player::Player(Game* game,
@@ -10,7 +11,8 @@ Player::Player(Game* game,
                sf::Color color = sf::Color::Cyan) 
                : GameObject(game),
                  UUID(Utils::UUID()),
-                 blobs({std::make_shared<Blob>(game, position, color)}) { }
+                 blobs({std::make_shared<Blob>(game, position, color)}),
+                 name(game->randomName()) { }
 
 Player::~Player() { }
                  
@@ -73,6 +75,14 @@ sf::RectangleShape Player::getBBoxShape() const {
     bBoxShape.setFillColor(sf::Color::Transparent);
 
     return bBoxShape;
+}
+
+std::string Player::getName() const {
+    return this->name;
+}
+
+std::string Player::getLoggerName() const {
+    return this->UUID + "(" + this->getName() + ")";
 }
 
 bool Player::operator==(Player& rhs) {

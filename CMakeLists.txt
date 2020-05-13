@@ -41,5 +41,10 @@ if(SFGUI_FOUND)
   target_link_libraries(agarios ${SFGUI_LIBRARY})
 endif()
 
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+add_subdirectory(${nlohmann_json_source}
+  ${CMAKE_SOURCE_DIR}/lib/json)
+target_link_libraries(agarios nlohmann_json)
+
 # Install target
 install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)

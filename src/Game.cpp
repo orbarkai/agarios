@@ -1,9 +1,11 @@
 #include "agarios/Game.h"
 #include "services/Utils.h"
 #include "services/Console.h"
+#include "services/FS.h"
 #include "agarios/window.h"
 #include "agarios/Bot.h"
 
+std::vector<std::string> Game::names = FS::getJsonResource("names.json");
 
 Game::Game(GameConfig gameConfig)
     : gameConfig(gameConfig),
@@ -135,7 +137,7 @@ Player* Game::join()
 {
     Player *player = new Player(this, {100, 100}, sf::Color::Cyan);
     this->players.insert({player->UUID, player});
-    Console::log(player->UUID) << "joined";
+    Console::log(player->getLoggerName()) << "joined";
     return player;
 }
 
@@ -159,4 +161,9 @@ sf::Vector2f Game::randomPosition() const {
     Utils::Vectors::mult(pos, boundsSize);
     pos += {this->gameConfig.BOUNDS.left, this->gameConfig.BOUNDS.top};
     return pos;
+}
+
+std::string Game::randomName() const {
+    std::string name = Game::names[rand() % Game::names.size()];
+    return name;
 }
