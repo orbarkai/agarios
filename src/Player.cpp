@@ -11,8 +11,10 @@ Player::Player(Game* game,
                sf::Color color = sf::Color::Cyan) 
                : GameObject(game),
                  UUID(Utils::UUID()),
-                 blobs({std::make_shared<Blob>(game, position, color)}),
-                 name(game->randomName()) { }
+                 name(game->randomName()),
+                 blobs({}) {
+    this->blobs.push_back(std::make_shared<Blob>(game, this, this->name, position, color));
+}
 
 Player::~Player() { }
                  
@@ -36,15 +38,14 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     }
 }
 
-void Player::update(sf::Vector2f inputVelocity) {
+void Player::update(sf::Vector2f inputVelocity, Window* window) {
     for (int i = 0; i < this->blobs.size(); i++) {
-        this->blobs[i]->update(inputVelocity);
+        this->blobs[i]->update(inputVelocity, window);
     }
 }
 
 sf::FloatRect Player::getBBox() const {
     float minX, maxX, minY, maxY;
-
     for (int i = 0; i < this->blobs.size(); i++) {
         float radius = this->blobs[i]->getRadius();
         sf::Vector2f center = this->blobs[i]->getPosition();

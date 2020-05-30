@@ -28,7 +28,7 @@ class Player : public sf::Drawable, public GameObject
         virtual ~Player();
 
     public:
-        void update(sf::Vector2f inputVelocity);
+        void update(sf::Vector2f inputVelocity, Window* window);
         sf::Vector2f getPosition() const;
         sf::FloatRect getBBox() const;
         sf::RectangleShape getBBoxShape() const;

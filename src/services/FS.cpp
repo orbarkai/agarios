@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <fstream>
 #include "services/FS.h"
+#include "services/Console.h"
 
 FS::Path FS::basePath(){
      return std::filesystem::current_path().parent_path();

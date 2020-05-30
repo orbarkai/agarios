@@ -17,10 +17,12 @@ class Window : public sf::RenderWindow, private GameObject
         Camera camera;
 
         sfg::SFGUI sfgui;
-        sfg::Desktop desktop;
         sf::Clock clock;
 
         sfg::Label::Ptr fpsLabel;
+
+    public:
+        sfg::Desktop desktop;
 
     public:
         Window(Game* game, Player* mainPlayer);

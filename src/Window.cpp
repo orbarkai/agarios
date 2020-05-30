@@ -1,26 +1,35 @@
 #include "agarios/window.h"
 #include "services/Console.h"
 #include "services/Utils.h"
+#include "services/FS.h"
 
 
 Window::Window(Game* game, Player* mainPlayer=NULL)
-               : sf::RenderWindow({game->gameConfig.WINDOW_WIDTH,
-                                   game->gameConfig.WINDOW_HEIGHT},
-                                   "Agarios")
+               : sf::RenderWindow({600,600}, "Agarios")
                , GameObject(game)
-               , camera(this, NULL)
                , sfgui()
                , desktop()
                , clock()
                , fpsLabel(sfg::Label::Create("")) {
 
-    this->setGame(game);
-    this->setMainPlayer(mainPlayer);
+    sfg::Context::Get().GetDefaultEngine().LoadThemeFromFile((FS::resorcesPath() / "sfgui.theme").string());
+    // Create a game if it is not provided. 
+    if (!game) {
+        GameConfig gameConfig = {};
+        gameConfig.GAME_MODE = GameConfig::GameMode::DEV;
+        game = new Game(gameConfig, this);
+    }
 
-    if (this->game && !this->mainPlayer) {
+    this->setGame(game);
+    this->camera = Camera(this, NULL);
+    
+    // Add a main player if not provided.
+    this->setMainPlayer(mainPlayer);
+    if (!this->mainPlayer) {
         this->setMainPlayer(this->game->join());
     }
 
+    // Add GUI
     this->desktop.Add(this->fpsLabel);
 }
 
@@ -70,13 +79,13 @@ void Window::run() {
         this->fpsLabel->SetText("fps: " + std::to_string(fps));
 
         // Update game
-        this->game->update({{this->mainPlayer->UUID, this->getPlayerInput()}});
+        this->game->update({{this->mainPlayer->UUID, this->getPlayerInput()}}, this);
 
         // Draw game
         this->draw(*this->game);
 
         // Draw GUI
-        this->sfgui.Display( *this );
+        this->sfgui.Display(*this);
 
         // Flip buffers
         this->display();
@@ -85,6 +94,9 @@ void Window::run() {
 
 void Window::setGame(Game* const game) {
     this->game = game;
+    if (this->game) {
+        this->setSize({this->game->gameConfig.WINDOW_WIDTH, this->game->gameConfig.WINDOW_HEIGHT});
+    }
 }
 
 Game* Window::getGame() const {

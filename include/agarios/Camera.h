@@ -17,6 +17,7 @@ class Camera
         float zoom;
 
     public:
+        Camera() = default;
         Camera(Window* window, Player* target);
 
     public:

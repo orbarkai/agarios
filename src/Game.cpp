@@ -2,16 +2,15 @@
 #include "services/Utils.h"
 #include "services/Console.h"
 #include "services/FS.h"
-#include "agarios/window.h"
 #include "agarios/Bot.h"
 
 std::vector<std::string> Game::names = FS::getJsonResource("names.json");
 
-Game::Game(GameConfig gameConfig)
+Game::Game(GameConfig gameConfig, Window* window)
     : gameConfig(gameConfig),
+      window(window),
       players({}),
       foods(QuadTree(gameConfig.BOUNDS, 10)) {
-
     this->init();
 }
 
@@ -29,7 +28,7 @@ void Game::init() {
 
     // Generate foods
     for (int i = 0 ; i < this->gameConfig.FOOD_PER_PIXEL * (gameConfig.BOUNDS.width * gameConfig.BOUNDS.height); i++) {
-        Food* food = new Food(this, this->randomPosition(), Utils::Colors::randomColor());
+        Food* food = new Food(this,  this->randomPosition(), Utils::Colors::randomColor());
         this->foods.insert(food);
     }
 
@@ -40,7 +39,7 @@ void Game::init() {
     }
 }
 
-void Game::update(PlayersInput playersInput)
+void Game::update(PlayersInput playersInput, Window* window)
 {
     // Update players
     PlayersInput::iterator inputI = playersInput.begin();
@@ -51,7 +50,7 @@ void Game::update(PlayersInput playersInput)
 
         if (playerI != this->players.end())
         {
-            playerI->second->update(inputI->second);
+            playerI->second->update(inputI->second, window);
         }
 
         inputI++;
@@ -64,7 +63,7 @@ void Game::update(PlayersInput playersInput)
         Bot* bot = dynamic_cast<Bot*>(player);
         
         if (bot) {
-            bot->update(bot->getNextMove().inputVelocity);
+            bot->update(bot->getNextMove().inputVelocity, window);
         }
 
         playerI++;
@@ -153,6 +152,14 @@ void Game::removeFood(Food* food) {
 
 QuadTree Game::getFoods() const {
     return this->foods;
+}
+
+void Game::setWindow(Window* const window) {
+    this->window = window;
+}
+
+Window* Game::getWindow() const {
+    return this->window;
 }
 
 sf::Vector2f Game::randomPosition() const {

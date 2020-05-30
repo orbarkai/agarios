@@ -14,11 +14,8 @@ int main()
     Console::startSection(Console::paint("cyan", "Agarios"));
     Console::endSection();
     Console::log();
-
-    GameConfig gameConfig = {};
-    gameConfig.GAME_MODE = GameConfig::GameMode::DEV;
-    Game game(gameConfig);
-    Window window(&game, NULL);
+    
+    Window window(NULL, NULL);
 
     window.run();
 

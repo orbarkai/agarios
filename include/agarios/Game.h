@@ -6,8 +6,7 @@
 #include "agarios/GameConfig.h"
 #include "agarios/QuadTree.h"
 #include "agarios/gameObjects/Food.h"
-
-class Window;
+#include "agarios/window.h"
 
 typedef std::unordered_map<std::string, sf::Vector2f> PlayersInput;
 typedef std::unordered_map<std::string, Player*> Players;
@@ -22,14 +21,19 @@ class Game : public sf::Drawable
         GameConfig gameConfig;
 
     private:
+        // If the game is redered in the client side, it has a window.
+        // Else, this would be NULL.
+        Window* window;
+
+        // Game stuff
         Players players;
         QuadTree foods;
 
     public:
-        Game(GameConfig gameConfig);
+        Game(GameConfig gameConfig, Window* window);
 
     public:
-        void update(PlayersInput playersInput);
+        void update(PlayersInput playersInput, Window* window);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         void init();
 
@@ -37,6 +41,8 @@ class Game : public sf::Drawable
         void removeFood(Food* food);
 
         QuadTree getFoods() const;
+        Window* getWindow() const;
+        void setWindow(Window* const window);
 
         sf::Vector2f randomPosition() const;
         std::string randomName() const;
